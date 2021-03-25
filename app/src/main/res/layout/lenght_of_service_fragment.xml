@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.LenghtOfServiceFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/length_of_service_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/length_of_service_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/first_header_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/current_length_of_service_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="13 years 2 mouth 12 day"
+        android:textSize="@dimen/first_header_text_size"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/long_margin"
+        app:layout_constraintTop_toBottomOf="@+id/length_of_service_TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

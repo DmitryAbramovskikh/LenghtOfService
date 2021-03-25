@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LenghtOfService</string>
+    <string name="length_of_service_title">Current length of service</string>
+</resources>
