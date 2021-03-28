@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.ui.main
+package com.dmabram15.lenghtofservice.viewModel
 
 import androidx.lifecycle.ViewModel
 

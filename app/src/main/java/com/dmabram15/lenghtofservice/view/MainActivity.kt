@@ -1,8 +1,8 @@
-package com.dmabram15.lenghtofservice
+package com.dmabram15.lenghtofservice.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.dmabram15.lenghtofservice.ui.main.LenghtOfServiceFragment
+import com.dmabram15.lenghtofservice.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, LenghtOfServiceFragment.newInstance())
+                    .replace(R.id.container, LengthOfServiceFragment.newInstance())
                     .commitNow()
         }
     }

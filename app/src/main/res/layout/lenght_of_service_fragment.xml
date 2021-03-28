@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.LenghtOfServiceFragment">
+    tools:context=".view.LengthOfServiceFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/length_of_service_TextView"
@@ -31,5 +31,15 @@
         app:layout_constraintTop_toBottomOf="@+id/length_of_service_TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/showListOfPeriodsFloatingButton"
+        android:layout_margin="@dimen/medium_spacing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/edit"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
