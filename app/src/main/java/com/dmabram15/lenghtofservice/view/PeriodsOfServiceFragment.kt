@@ -42,17 +42,18 @@ class PeriodsOfServiceFragment : Fragment() {
             lm.orientation = LinearLayoutManager.VERTICAL
             layoutManager = lm
         }
-        showAlertIsNull()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
         viewModel.getPeriods().observe(this, { render(it) })
+        viewModel.loadData()
     }
 
     private fun render(periods: ArrayList<PeriodOfService>) {
         periodsAdapter.setPeriods(periods)
+        showAlertIsNull()
     }
 
     private fun showAlertIsNull() {
