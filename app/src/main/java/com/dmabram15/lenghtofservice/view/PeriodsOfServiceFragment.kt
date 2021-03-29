@@ -36,12 +36,8 @@ class PeriodsOfServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.periodsRecyclerView.apply {
-            this.adapter = periodsAdapter
-            val lm = LinearLayoutManager(context)
-            lm.orientation = LinearLayoutManager.VERTICAL
-            layoutManager = lm
-        }
+        setRecyclerView()
+        setListeners()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -66,6 +62,21 @@ class PeriodsOfServiceFragment : Fragment() {
                     }
                     .create()
                     .show()
+        }
+    }
+
+    private fun setListeners() {
+        binding.addFloatingButton.setOnClickListener {
+            TODO("implements opening add|edit period fragment")
+        }
+    }
+
+    private fun setRecyclerView() {
+        binding.periodsRecyclerView.apply {
+            this.adapter = periodsAdapter
+            val lm = LinearLayoutManager(context)
+            lm.orientation = LinearLayoutManager.VERTICAL
+            layoutManager = lm
         }
     }
 

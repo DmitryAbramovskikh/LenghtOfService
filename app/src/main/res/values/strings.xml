@@ -8,4 +8,5 @@
     <string name="list_of_periods_is_null_message">You period\'s list is null.\nYou need to add new period.</string>
     <string name="allow">Allow</string>
     <string name="edit">Edit</string>
+    <string name="add_new_period">Add new period</string>
 </resources>

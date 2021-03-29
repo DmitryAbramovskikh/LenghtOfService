@@ -8,4 +8,6 @@
     <string name="attention">Внимание!</string>
     <string name="list_of_periods_is_null_message">Вы не добавили ни одного периода службы.</string>
     <string name="allow">Принять</string>
+    <string name="edit">Редактировать</string>
+    <string name="add_new_period">Добавить новый период</string>
 </resources>
