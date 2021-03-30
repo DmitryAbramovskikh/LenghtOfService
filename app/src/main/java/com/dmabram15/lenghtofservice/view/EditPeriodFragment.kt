@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
-import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
+import com.dmabram15.lenghtofservice.model.LongToDateConverter
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class EditPeriodFragment : Fragment() {
 
@@ -18,6 +19,9 @@ class EditPeriodFragment : Fragment() {
 
     private lateinit var viewModel: EditPeriodViewModel
     private lateinit var binding: EditPeriodFragmentBinding
+    private var isBeginDatePickClicked : Boolean? = null
+
+    private val dataPicker = MaterialDatePicker.Builder.datePicker().build()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +34,55 @@ class EditPeriodFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        setObservers()
+        setListeners()
     }
 
+    private fun setObservers() {
+        viewModel.getBeginLD().observe(this, {renderBeginDate(it)})
+        viewModel.getEndLD().observe(this, {renderEndDate(it)})
+        viewModel.getMultiplyLD().observe(this, {renderMultiply(it)})
+    }
+
+    private fun setListeners() {
+        dataPicker.addOnPositiveButtonClickListener {dateLong->
+            isBeginDatePickClicked?.let{
+                if(it) {
+                    viewModel.setBeginDate(dateLong)
+                }
+                else {
+                    viewModel.setEndDate(dateLong)
+                }
+            }
+        }
+        binding.pickStartDate.setOnClickListener {
+            isBeginDatePickClicked = true
+            showPicker()
+        }
+        binding.pickEndDate.setOnClickListener {
+            isBeginDatePickClicked = false
+            showPicker()
+        }
+    }
+
+    private fun showPicker() {
+        activity?.supportFragmentManager?.let {
+            dataPicker.show(it, null)
+        }
+    }
+
+    private fun renderBeginDate(value : Long) {
+        binding.beginPeriodDateTextView.text = LongToDateConverter
+            .convert(value)
+    }
+
+    private fun renderEndDate(value : Long) {
+        binding.endPeriodDateTextView.text = LongToDateConverter
+            .convert(value)
+    }
+
+    private fun renderMultiply(value : Float) {
+        //TODO Реализовать отрисовку выбранного радиобаттона
+    }
 }

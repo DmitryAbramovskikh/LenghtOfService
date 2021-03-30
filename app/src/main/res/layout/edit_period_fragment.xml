@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/add_new_period"
         android:textColor="@color/dark_text"
-        android:textSize="@dimen/first_header_text_size"
+        android:textSize="@dimen/usual_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_spacing"
         android:text="@string/begin_date"
-        android:textSize="@dimen/first_header_text_size"
+        android:textSize="@dimen/usual_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lengthOfServiceItemTextView" />
 
@@ -32,10 +32,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/backdrop"
+        android:gravity="center"
         android:layout_marginTop="@dimen/small_spacing"
         android:layout_marginEnd="@dimen/medium_spacing"
-        android:textSize="@dimen/first_header_text_size"
-        android:hint="@string/get_data_from_calendar"
+        android:textSize="@dimen/usual_text_size"
+        android:hint="@string/get_date_from_calendar"
         android:ellipsize="end"
         app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_spacing"
         android:text="@string/end_date"
-        android:textSize="@dimen/first_header_text_size"
+        android:textSize="@dimen/usual_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/beginPeriodDateTextView"/>
 
@@ -70,9 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/medium_spacing"
         android:layout_marginEnd="@dimen/medium_spacing"
+        android:gravity="center"
         android:background="@drawable/backdrop"
-        android:textSize="@dimen/first_header_text_size"
-        android:hint="@string/get_data_from_calendar"
+        android:textSize="@dimen/usual_text_size"
+        android:hint="@string/get_date_from_calendar"
         android:ellipsize="end"
         app:layout_constraintEnd_toStartOf="@+id/pickEndDate"
         app:layout_constraintStart_toStartOf="@id/beginPeriodDateTextView"
@@ -97,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_spacing"
         android:text="@string/multiple"
-        android:textSize="@dimen/first_header_text_size"
+        android:textSize="@dimen/usual_text_size"
         android:layout_marginEnd="@dimen/small_spacing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endPeriodDateTextView" />
