@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.R
+import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
 
 class EditPeriodFragment : Fragment() {
 
@@ -16,12 +17,14 @@ class EditPeriodFragment : Fragment() {
     }
 
     private lateinit var viewModel: EditPeriodViewModel
+    private lateinit var binding: EditPeriodFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.edit_period_fragment, container, false)
+    ): View {
+        binding = EditPeriodFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

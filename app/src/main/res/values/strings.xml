@@ -15,4 +15,5 @@
     <string name="x3" translatable="false">x3</string>
     <string name="set">set</string>
     <string name="apply">apply</string>
+    <string name="get_data_from_calendar">Get data from calendar</string>
 </resources>
