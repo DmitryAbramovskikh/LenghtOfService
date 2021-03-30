@@ -10,4 +10,6 @@
     <string name="allow">Принять</string>
     <string name="edit">Редактировать</string>
     <string name="add_new_period">Добавить новый период</string>
+    <string name="set">Выбрать</string>
+    <string name="apply">Принять</string>
 </resources>
