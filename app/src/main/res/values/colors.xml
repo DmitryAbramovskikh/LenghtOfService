@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_text">#191919</color>
+    <color name="widget_background_color">#C6FFD5</color>
 </resources>

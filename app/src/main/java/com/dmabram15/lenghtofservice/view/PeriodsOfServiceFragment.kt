@@ -67,7 +67,10 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
-            TODO("implements opening add|edit period fragment")
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, EditPeriodFragment.newInstance())
+                ?.addToBackStack(null)
+                ?.commitAllowingStateLoss()
         }
     }
 

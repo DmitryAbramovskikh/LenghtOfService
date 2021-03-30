@@ -9,4 +9,8 @@
     <string name="allow">Allow</string>
     <string name="edit">Edit</string>
     <string name="add_new_period">Add new period</string>
+    <string name="x1" translatable="false">x1</string>
+    <string name="x1_5" translatable="false">x1,5</string>
+    <string name="x2" translatable="false">x2</string>
+    <string name="x3" translatable="false">x3</string>
 </resources>
