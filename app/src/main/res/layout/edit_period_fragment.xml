@@ -114,19 +114,22 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/x10multiplierRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/x1"
             android:textSize="@dimen/first_header_text_size"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/x15multiplierRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_spacing"
             android:text="@string/x1_5"
-            android:textSize="@dimen/first_header_text_size"/>
+            android:textSize="@dimen/first_header_text_size" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/x20multiplierRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_spacing"
@@ -134,6 +137,7 @@
             android:textSize="@dimen/first_header_text_size"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/x30multiplierRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_spacing"
@@ -141,6 +145,7 @@
             android:textSize="@dimen/first_header_text_size"/>
     </RadioGroup>
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/applyButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/apply"

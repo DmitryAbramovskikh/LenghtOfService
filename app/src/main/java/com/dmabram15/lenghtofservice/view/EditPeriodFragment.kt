@@ -19,7 +19,7 @@ class EditPeriodFragment : Fragment() {
 
     private lateinit var viewModel: EditPeriodViewModel
     private lateinit var binding: EditPeriodFragmentBinding
-    private var isBeginDatePickClicked : Boolean? = null
+    private var isBeginDatePickClicked: Boolean? = null
 
     private val dataPicker = MaterialDatePicker.Builder.datePicker().build()
 
@@ -27,7 +27,10 @@ class EditPeriodFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = EditPeriodFragmentBinding.inflate(inflater, container, false)
+        binding = EditPeriodFragmentBinding.inflate(
+            inflater,
+            container,
+            false)
         return binding.root
     }
 
@@ -40,18 +43,17 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.getBeginLD().observe(this, {renderBeginDate(it)})
-        viewModel.getEndLD().observe(this, {renderEndDate(it)})
-        viewModel.getMultiplyLD().observe(this, {renderMultiply(it)})
+        viewModel.getBeginLD().observe(this, { renderBeginDate(it) })
+        viewModel.getEndLD().observe(this, { renderEndDate(it) })
+        viewModel.getMultiplyLD().observe(this, { renderMultiply(it) })
     }
 
     private fun setListeners() {
-        dataPicker.addOnPositiveButtonClickListener {dateLong->
-            isBeginDatePickClicked?.let{
-                if(it) {
+        dataPicker.addOnPositiveButtonClickListener { dateLong ->
+            isBeginDatePickClicked?.let {
+                if (it) {
                     viewModel.setBeginDate(dateLong)
-                }
-                else {
+                } else {
                     viewModel.setEndDate(dateLong)
                 }
             }
@@ -64,6 +66,25 @@ class EditPeriodFragment : Fragment() {
             isBeginDatePickClicked = false
             showPicker()
         }
+        binding.applyButton.setOnClickListener {
+            viewModel.applyClick()
+        }
+        binding.multiplySelectorRadioGroup.setOnCheckedChangeListener { _, i ->
+            when (i) {
+                binding.x10multiplierRB.id -> {
+                    viewModel.setMultiple(1.0f)
+                }
+                binding.x15multiplierRB.id -> {
+                    viewModel.setMultiple(1.5f)
+                }
+                binding.x20multiplierRB.id -> {
+                    viewModel.setMultiple(2.0f)
+                }
+                binding.x30multiplierRB.id -> {
+                    viewModel.setMultiple(3.0f)
+                }
+            }
+        }
     }
 
     private fun showPicker() {
@@ -72,17 +93,19 @@ class EditPeriodFragment : Fragment() {
         }
     }
 
-    private fun renderBeginDate(value : Long) {
+    private fun renderBeginDate(value: Long) {
         binding.beginPeriodDateTextView.text = LongToDateConverter
             .convert(value)
     }
 
-    private fun renderEndDate(value : Long) {
+    private fun renderEndDate(value: Long) {
         binding.endPeriodDateTextView.text = LongToDateConverter
             .convert(value)
     }
 
-    private fun renderMultiply(value : Float) {
+    private fun renderMultiply(value: Float) {
         //TODO Реализовать отрисовку выбранного радиобаттона
     }
+
+
 }

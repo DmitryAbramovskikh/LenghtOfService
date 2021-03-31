@@ -12,6 +12,7 @@ import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
 import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
+import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.viewModel.PeriodsOfViewModel
 
 class PeriodsOfServiceFragment : Fragment() {
@@ -24,6 +25,7 @@ class PeriodsOfServiceFragment : Fragment() {
     }
 
     private lateinit var viewModel: PeriodsOfViewModel
+    private lateinit var daughterViewModel : EditPeriodViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,14 @@ class PeriodsOfServiceFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModelsInit()
+    }
+
+    private fun viewModelsInit() {
+        //TODO realize transfer data from editFragment to periodsFragment
+        daughterViewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
+        daughterViewModel.getPeriod().observe(this, {savePeriod(it)})
+
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
         viewModel.getPeriods().observe(this, { render(it) })
         viewModel.loadData()
@@ -81,6 +91,10 @@ class PeriodsOfServiceFragment : Fragment() {
             lm.orientation = LinearLayoutManager.VERTICAL
             layoutManager = lm
         }
+    }
+
+    private fun savePeriod(periodOfService: PeriodOfService) {
+        viewModel.savePeriod(periodOfService)
     }
 
 }
