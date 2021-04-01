@@ -34,4 +34,17 @@ class SharedViewModel : ViewModel() {
             periodsLiveData.postValue(repository.getAllPeriods())
         }.start()
     }
+
+    fun checkPeriodsCollision(
+        periodOfService: PeriodOfService,
+        periodsList: ArrayList<PeriodOfService>
+    ): Boolean {
+        for (periodItem : PeriodOfService in periodsList) {
+            if (periodOfService.beginPeriod in periodItem.beginPeriod .. periodItem.endPeriod)
+                return false
+            if(periodOfService.endPeriod in periodItem.beginPeriod .. periodItem.endPeriod)
+                return false
+        }
+        return true
+    }
 }

@@ -72,8 +72,13 @@ class EditPeriodFragment : Fragment() {
             showPicker()
         }
         binding.applyButton.setOnClickListener {
-            viewModel.createPeriodOfService()?.let {
-                sharedViewModel.setPeriod(it)
+            sharedViewModel.getPeriods().value?.let {periods  ->
+                viewModel.createPeriodOfService()?.let {
+                    if (sharedViewModel.checkPeriodsCollision(
+                            it,
+                            periods
+                            )) sharedViewModel.setPeriod(it)
+                }
             }
         }
         binding.multiplySelectorRadioGroup.setOnCheckedChangeListener { _, i ->
