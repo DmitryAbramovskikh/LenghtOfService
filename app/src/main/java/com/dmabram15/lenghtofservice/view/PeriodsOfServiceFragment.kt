@@ -49,7 +49,7 @@ class PeriodsOfServiceFragment : Fragment() {
     }
 
     private fun viewModelsInit() {
-        //TODO realize transfer data from editFragment to periodsFragment
+
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         sharedViewModel.getPeriods().observe(this, { render(it) })
         sharedViewModel.loadData()
