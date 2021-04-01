@@ -9,19 +9,4 @@ import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl
 
 class PeriodsOfViewModel : ViewModel() {
 
-    private val periodsLiveData = MutableLiveData<ArrayList<PeriodOfService>>()
-    private val repository : RoomRepository = RoomRepositoryImpl()
-
-    fun getPeriods() : MutableLiveData<ArrayList<PeriodOfService>> = periodsLiveData
-
-    fun loadData() {
-        Thread{
-            periodsLiveData.postValue(repository.getAllPeriods())
-        }.start()
-    }
-
-    fun savePeriod(periodOfService: PeriodOfService) {
-        periodsLiveData.value?.add(periodOfService)
-        repository.savePeriod(periodOfService)
-    }
 }

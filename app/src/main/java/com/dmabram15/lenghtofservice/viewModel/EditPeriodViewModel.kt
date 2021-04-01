@@ -8,12 +8,10 @@ class EditPeriodViewModel : ViewModel() {
     private var beginDate: MutableLiveData<Long> = MutableLiveData()
     private var endDate: MutableLiveData<Long> = MutableLiveData()
     private var multiple: MutableLiveData<Float> = MutableLiveData()
-    private var period: MutableLiveData<PeriodOfService> = MutableLiveData()
 
     fun getBeginLD(): MutableLiveData<Long> = beginDate
     fun getEndLD(): MutableLiveData<Long> = endDate
     fun getMultiplyLD(): MutableLiveData<Float> = multiple
-    fun getPeriod(): MutableLiveData<PeriodOfService> = period
 
     fun setBeginDate(value: Long) {
         beginDate.value = value
@@ -27,22 +25,17 @@ class EditPeriodViewModel : ViewModel() {
         multiple.value = value
     }
 
-    private fun setPeriod(value: PeriodOfService) {
-        period.value = value
-    }
-
-    fun applyClick() {
-        if (beginDate.value != null
+    fun createPeriodOfService(): PeriodOfService? {
+        return if (beginDate.value != null
             && endDate.value != null
             && multiple.value != null
         ) {
-            val periodOfService = PeriodOfService(
+            PeriodOfService(
                 0,
                 beginDate.value!!,
                 endDate.value!!,
                 multiple.value!!
             )
-            setPeriod(periodOfService)
-        }
+        } else null
     }
 }

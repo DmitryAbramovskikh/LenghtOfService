@@ -20,13 +20,16 @@ class PeriodsOfServiceRVAdapter : RecyclerView.Adapter<PeriodsOfServiceRVAdapter
 
     override fun onBindViewHolder(holder: PeriodsOfServiceViewHolder, position: Int) {
         holder.binding.apply {
-            beginPeriodDateTextView.text = LongToDateConverter.convert(periods[position].beginPeriod)
-            endPeriodDateTextView.text = LongToDateConverter.convert(periods[position].endPeriod)
+            beginPeriodDateTextView.text = LongToDateConverter
+                .convert(periods[position].beginPeriod)
+            endPeriodDateTextView.text = LongToDateConverter
+                .convert(periods[position].endPeriod)
             lengthOfServiceItemTextView.text = LongToDateConverter.convertDifferent(
-                ((periods[position].beginPeriod
-                        - periods[position].endPeriod)
+                ((periods[position].endPeriod
+                        - periods[position].beginPeriod)
                         * periods[position].multiple).toLong()
             )
+            multipleCoefficientTextView.text = periods[position].multiple.toString()
         }
     }
 

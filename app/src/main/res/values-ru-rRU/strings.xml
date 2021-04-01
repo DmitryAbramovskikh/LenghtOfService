@@ -13,4 +13,7 @@
     <string name="set">Выбрать</string>
     <string name="apply">Принять</string>
     <string name="get_date_from_calendar">Установи дату из календаря…</string>
+    <string name="years">лет</string>
+    <string name="months">месяцев</string>
+    <string name="days">дней</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.dmabram15.lenghtofservice.model
 
+import com.dmabram15.lenghtofservice.App
+import com.dmabram15.lenghtofservice.R
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,8 +22,11 @@ class LongToDateConverter {
             val years = calendar.get(Calendar.YEAR) - 1970
             val months = calendar.get(Calendar.MONTH)
             val days = calendar.get(Calendar.DAY_OF_MONTH)
+            val yearsText = App.getInstance().getString(R.string.years)
+            val monthsText = App.getInstance().getString(R.string.months)
+            val daysText = App.getInstance().getString(R.string.days)
 
-            return "$years years $months months $days days."
+            return "$years $yearsText $months $monthsText $days $daysText"
         }
     }
 }

@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
+import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class EditPeriodFragment : Fragment() {
@@ -18,6 +20,7 @@ class EditPeriodFragment : Fragment() {
     }
 
     private lateinit var viewModel: EditPeriodViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var binding: EditPeriodFragmentBinding
     private var isBeginDatePickClicked: Boolean? = null
 
@@ -30,13 +33,15 @@ class EditPeriodFragment : Fragment() {
         binding = EditPeriodFragmentBinding.inflate(
             inflater,
             container,
-            false)
+            false
+        )
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
+        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         setObservers()
         setListeners()
@@ -67,7 +72,9 @@ class EditPeriodFragment : Fragment() {
             showPicker()
         }
         binding.applyButton.setOnClickListener {
-            viewModel.applyClick()
+            viewModel.createPeriodOfService()?.let {
+                sharedViewModel.setPeriod(it)
+            }
         }
         binding.multiplySelectorRadioGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
@@ -104,7 +111,14 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun renderMultiply(value: Float) {
-        //TODO Реализовать отрисовку выбранного радиобаттона
+        binding.multiplySelectorRadioGroup.check(
+            when (value) {
+                1.0f -> R.id.x10multiplierRB
+                1.5f -> R.id.x15multiplierRB
+                2.0f -> R.id.x20multiplierRB
+                else -> R.id.x30multiplierRB
+            }
+        )
     }
 
 
