@@ -9,7 +9,11 @@ import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl
 class SharedViewModel : ViewModel() {
 
     private val periodsLiveData = MutableLiveData<ArrayList<PeriodOfService>>()
-    private val repository : RoomRepository = RoomRepositoryImpl()
+    private var repository : RoomRepository = RoomRepositoryImpl()
+
+    init {
+        loadData()
+    }
 
     fun getPeriods() : MutableLiveData<ArrayList<PeriodOfService>> = periodsLiveData
 
