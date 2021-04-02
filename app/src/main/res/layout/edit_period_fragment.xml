@@ -1,159 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/medium_spacing"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/lengthOfServiceItemTextView"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_new_period"
-        android:textColor="@color/dark_text"
-        android:textSize="@dimen/usual_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="@dimen/medium_spacing"
+        >
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/beginDateLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:text="@string/begin_date"
-        android:textSize="@dimen/usual_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lengthOfServiceItemTextView" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/beginPeriodDateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/backdrop"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:layout_marginEnd="@dimen/medium_spacing"
-        android:textSize="@dimen/usual_text_size"
-        android:hint="@string/get_date_from_calendar"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beginDateLabelTextView" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/pickStartDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/set"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/widget_background_dark_color"
-        app:icon="@drawable/ic_calendar"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/beginPeriodDateTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/beginPeriodDateTextView" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/endDateLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:text="@string/end_date"
-        android:textSize="@dimen/usual_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/beginPeriodDateTextView"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/endPeriodDateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/medium_spacing"
-        android:layout_marginEnd="@dimen/medium_spacing"
-        android:gravity="center"
-        android:background="@drawable/backdrop"
-        android:textSize="@dimen/usual_text_size"
-        android:hint="@string/get_date_from_calendar"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/pickEndDate"
-        app:layout_constraintStart_toStartOf="@id/beginPeriodDateTextView"
-        app:layout_constraintTop_toBottomOf="@id/endDateLabelTextView"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/pickEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/set"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/widget_background_dark_color"
-        app:icon="@drawable/ic_calendar"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/endPeriodDateTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/endPeriodDateTextView" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/multipleCoefficientLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:text="@string/multiple"
-        android:textSize="@dimen/usual_text_size"
-        android:layout_marginEnd="@dimen/small_spacing"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endPeriodDateTextView" />
-
-    <RadioGroup
-        android:id="@+id/multiplySelectorRadioGroup"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/multipleCoefficientLabelTextView"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/x10multiplierRB"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lengthOfServiceItemTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/x1"
-            android:textSize="@dimen/first_header_text_size"/>
+            android:text="@string/add_new_period"
+            android:textColor="@color/dark_text"
+            android:textSize="@dimen/usual_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/x15multiplierRB"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/beginDateLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_spacing"
-            android:text="@string/x1_5"
-            android:textSize="@dimen/first_header_text_size" />
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@string/begin_date"
+            android:textSize="@dimen/usual_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lengthOfServiceItemTextView" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/x20multiplierRB"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/beginPeriodDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backdrop"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textSize="@dimen/usual_text_size"
+            android:hint="@string/get_date_from_calendar"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/beginDateLabelTextView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pickStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_spacing"
-            android:text="@string/x2"
-            android:textSize="@dimen/first_header_text_size"/>
+            android:text="@string/set"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/widget_background_dark_color"
+            app:icon="@drawable/ic_calendar"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/beginPeriodDateTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/beginPeriodDateTextView" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/x30multiplierRB"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/endDateLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_spacing"
-            android:text="@string/x3"
-            android:textSize="@dimen/first_header_text_size"/>
-    </RadioGroup>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/applyButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/apply"
-        android:textColor="@color/black"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:backgroundTint="@color/widget_background_dark_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/multiplySelectorRadioGroup"/>
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@string/end_date"
+            android:textSize="@dimen/usual_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/beginPeriodDateTextView"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/endPeriodDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:gravity="center"
+            android:background="@drawable/backdrop"
+            android:textSize="@dimen/usual_text_size"
+            android:hint="@string/get_date_from_calendar"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/pickEndDate"
+            app:layout_constraintStart_toStartOf="@id/beginPeriodDateTextView"
+            app:layout_constraintTop_toBottomOf="@id/endDateLabelTextView"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pickEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/widget_background_dark_color"
+            app:icon="@drawable/ic_calendar"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/endPeriodDateTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/endPeriodDateTextView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/multipleCoefficientLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@string/multiple"
+            android:textSize="@dimen/usual_text_size"
+            android:layout_marginEnd="@dimen/small_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/endPeriodDateTextView" />
+
+        <RadioGroup
+            android:id="@+id/multiplySelectorRadioGroup"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/multipleCoefficientLabelTextView"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/x10multiplierRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/x1"
+                android:textSize="@dimen/first_header_text_size"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/x15multiplierRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_spacing"
+                android:text="@string/x1_5"
+                android:textSize="@dimen/first_header_text_size" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/x20multiplierRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_spacing"
+                android:text="@string/x2"
+                android:textSize="@dimen/first_header_text_size"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/x30multiplierRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_spacing"
+                android:text="@string/x3"
+                android:textSize="@dimen/first_header_text_size"/>
+        </RadioGroup>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/apply"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:backgroundTint="@color/widget_background_dark_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/multiplySelectorRadioGroup"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -12,6 +12,7 @@ import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 
 class EditPeriodFragment : Fragment() {
 
@@ -41,7 +42,9 @@ class EditPeriodFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
-        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+        activity?.let{
+            sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
+        }
 
         setObservers()
         setListeners()
@@ -72,14 +75,17 @@ class EditPeriodFragment : Fragment() {
             showPicker()
         }
         binding.applyButton.setOnClickListener {
-            sharedViewModel.getPeriods().value?.let {periods  ->
-                viewModel.createPeriodOfService()?.let {
-                    if (sharedViewModel.checkPeriodsCollision(
-                            it,
-                            periods
-                            )) sharedViewModel.setPeriod(it)
+            viewModel.createPeriodOfService()?.let {
+                if (sharedViewModel
+                        .checkPeriodsCollision(it)
+                ) {
+                    sharedViewModel.setPeriod(it)
+                    sharedViewModel.savePeriod(it)
+                    fragmentManager?.popBackStack()
+                } else {
+                    snackBarShow(getString(R.string.has_collision_periods))
                 }
-            }
+            } ?: snackBarShow(getString(R.string.not_all_fields_was_filled))
         }
         binding.multiplySelectorRadioGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
@@ -97,6 +103,14 @@ class EditPeriodFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun snackBarShow(text : String) {
+        Snackbar.make(
+            binding.root,
+            text,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     private fun showPicker() {

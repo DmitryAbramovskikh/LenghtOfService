@@ -19,11 +19,9 @@ class SharedViewModel : ViewModel() {
 
     fun setPeriod(value: PeriodOfService) {
         periodsLiveData.value?.add(value)
-        savePeriod(value)
     }
 
-    private fun savePeriod(periodOfService: PeriodOfService) {
-        periodsLiveData.value?.add(periodOfService)
+    fun savePeriod(periodOfService: PeriodOfService) {
         Thread{
             repository.savePeriod(periodOfService)
         }.start()
@@ -35,15 +33,16 @@ class SharedViewModel : ViewModel() {
         }.start()
     }
 
-    fun checkPeriodsCollision(
-        periodOfService: PeriodOfService,
-        periodsList: ArrayList<PeriodOfService>
-    ): Boolean {
-        for (periodItem : PeriodOfService in periodsList) {
-            if (periodOfService.beginPeriod in periodItem.beginPeriod .. periodItem.endPeriod)
-                return false
-            if(periodOfService.endPeriod in periodItem.beginPeriod .. periodItem.endPeriod)
-                return false
+    fun checkPeriodsCollision(periodOfService : PeriodOfService): Boolean {
+        periodsLiveData.value?.let{ periods ->
+            for (periodItem : PeriodOfService in periods) {
+                if (periodOfService.beginPeriod in periodItem.beginPeriod .. periodItem.endPeriod)
+                    return false
+                if(periodOfService.endPeriod in periodItem.beginPeriod .. periodItem.endPeriod)
+                    return false
+                if (periodItem.beginPeriod in periodOfService.beginPeriod .. periodOfService.endPeriod)
+                    return false
+            }
         }
         return true
     }

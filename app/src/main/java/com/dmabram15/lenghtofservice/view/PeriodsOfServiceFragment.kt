@@ -49,8 +49,9 @@ class PeriodsOfServiceFragment : Fragment() {
     }
 
     private fun viewModelsInit() {
-
-        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+        activity?.let {
+            sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
+        }
         sharedViewModel.getPeriods().observe(this, { render(it) })
         sharedViewModel.loadData()
 
