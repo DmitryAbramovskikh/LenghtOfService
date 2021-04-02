@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.LenghtOfServiceFragment">
+    tools:context=".view.LengthOfServiceFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/length_of_service_TextView"
@@ -14,22 +14,60 @@
         android:text="@string/length_of_service_title"
         android:textColor="@color/black"
         android:textSize="@dimen/first_header_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/preferentialLabel"
+        app:layout_constraintStart_toStartOf="@+id/preferentialLabel" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/preferentialLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_spacing"
+        android:text="@string/preferential"
+        android:textSize="@dimen/first_header_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/preferentialLengthOfServiceTextView"
+        app:layout_constraintStart_toStartOf="@+id/preferentialLengthOfServiceTextView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/preferentialLengthOfServiceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/first_header_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.26"
+        tools:text="13 years 2 mouth 12 day" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/current_length_of_service_TextView"
+        android:id="@+id/calendarLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="13 years 2 mouth 12 day"
+        android:paddingTop="@dimen/medium_spacing"
+        android:text="@string/calendar"
         android:textSize="@dimen/first_header_text_size"
+        app:layout_constraintStart_toStartOf="@+id/preferentialLengthOfServiceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/preferentialLengthOfServiceTextView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/calendarLengthOfServiceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_marginTop="@dimen/long_margin"
-        app:layout_constraintTop_toBottomOf="@+id/length_of_service_TextView"
+        android:textSize="@dimen/first_header_text_size"
+        app:layout_constraintStart_toStartOf="@+id/calendarLabel"
+        app:layout_constraintTop_toBottomOf="@+id/calendarLabel"
+        tools:text="13 years 2 mouth 12 day" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/showListOfPeriodsFloatingButton"
+        android:layout_margin="@dimen/medium_spacing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/edit"
+        android:src="@drawable/ic_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

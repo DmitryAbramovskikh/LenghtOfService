@@ -1,4 +1,26 @@
 <resources>
-    <string name="app_name">LenghtOfService</string>
+    <string name="app_name">Length of service</string>
     <string name="length_of_service_title">Current length of service</string>
+    <string name="begin_date">Begin date:</string>
+    <string name="end_date">End date:</string>
+    <string name="multiple">Multiple:</string>
+    <string name="attention">Attention!</string>
+    <string name="list_of_periods_is_null_message">You period\'s list is null.\nYou need to add new period.</string>
+    <string name="allow">Allow</string>
+    <string name="edit">Edit</string>
+    <string name="add_new_period">Add new period</string>
+    <string name="x1" translatable="false">x1</string>
+    <string name="x1_5" translatable="false">x1,5</string>
+    <string name="x2" translatable="false">x2</string>
+    <string name="x3" translatable="false">x3</string>
+    <string name="set">set</string>
+    <string name="apply">apply</string>
+    <string name="get_date_from_calendar">Get date from calendar…</string>
+    <string name="years">years</string>
+    <string name="months">months</string>
+    <string name="days">days</string>
+    <string name="has_collision_periods">Entered period has collision by typed previously</string>
+    <string name="not_all_fields_was_filled">Not all fields was filled</string>
+    <string name="preferential">Preferential:</string>
+    <string name="calendar">Calendar:</string>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Выслуга</string>
+    <string name="length_of_service_title">ТЕКУЩАЯ ВЫСЛУГА</string>
+    <string name="begin_date">Начало периода:</string>
+    <string name="end_date">Конец периода:</string>
+    <string name="multiple">Множитель:</string>
+    <string name="attention">Внимание!</string>
+    <string name="list_of_periods_is_null_message">Вы не добавили ни одного периода службы.</string>
+    <string name="allow">Принять</string>
+    <string name="edit">Редактировать</string>
+    <string name="add_new_period">Добавить новый период</string>
+    <string name="set">Выбрать</string>
+    <string name="apply">Принять</string>
+    <string name="get_date_from_calendar">Установи дату из календаря…</string>
+    <string name="years">лет</string>
+    <string name="months">месяцев</string>
+    <string name="days">дней</string>
+    <string name="has_collision_periods">Введенный период пересекается с ранее добавленными</string>
+    <string name="not_all_fields_was_filled">Не все поля были заполнены</string>
+    <string name="preferential">Льготная:</string>
+    <string name="calendar">Календарная:</string>
+</resources>
