@@ -21,7 +21,7 @@ class LongToDateConverter {
             calendar.time = java.util.Date(different)
             val years = calendar.get(Calendar.YEAR) - 1970
             val months = calendar.get(Calendar.MONTH)
-            val days = calendar.get(Calendar.DAY_OF_MONTH)
+            val days = calendar.get(Calendar.DAY_OF_MONTH) -1
             val yearsText = App.getInstance().getString(R.string.years)
             val monthsText = App.getInstance().getString(R.string.months)
             val daysText = App.getInstance().getString(R.string.days)

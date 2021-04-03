@@ -18,6 +18,6 @@
     <string name="days">дней</string>
     <string name="has_collision_periods">Введенный период пересекается с ранее добавленными</string>
     <string name="not_all_fields_was_filled">Не все поля были заполнены</string>
-    <string name="preferential">Льготная:</string>
-    <string name="calendar">Календарная:</string>
+    <string name="preferential">льготная</string>
+    <string name="calendar">календарная</string>
 </resources>

@@ -21,6 +21,6 @@
     <string name="days">days</string>
     <string name="has_collision_periods">Entered period has collision by typed previously</string>
     <string name="not_all_fields_was_filled">Not all fields was filled</string>
-    <string name="preferential">Preferential:</string>
-    <string name="calendar">Calendar:</string>
+    <string name="preferential">preferential</string>
+    <string name="calendar">calendar</string>
 </resources>
