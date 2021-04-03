@@ -26,13 +26,22 @@ class LengthOfServiceFragment : Fragment() {
     private lateinit var binding : LenghtOfServiceFragmentBinding
 
     private val sharedViewModel by lazy {
-        ViewModelProvider(this).get(SharedViewModel::class.java)
+        activity?.let {
+            ViewModelProvider(it).get(SharedViewModel::class.java)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = LenghtOfServiceFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sharedViewModel?.getPeriods()?.value?.let {
+            renderData(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +66,7 @@ class LengthOfServiceFragment : Fragment() {
 
     private fun setObservers(){
         activity?.let { activity ->
-            sharedViewModel.getPeriods().observe(activity, {renderData(it)})
+            sharedViewModel?.getPeriods()?.observe(activity, {renderData(it)})
         }
     }
 

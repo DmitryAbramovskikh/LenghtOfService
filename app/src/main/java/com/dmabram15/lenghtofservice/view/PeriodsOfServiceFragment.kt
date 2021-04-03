@@ -43,6 +43,13 @@ class PeriodsOfServiceFragment : Fragment() {
         setListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        sharedViewModel.getPeriods().value?.let {
+            render(it)
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModelsInit()
