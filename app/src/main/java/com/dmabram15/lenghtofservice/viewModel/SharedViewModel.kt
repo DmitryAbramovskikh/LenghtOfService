@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.model.repository.RoomRepository
 import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl
+import com.dmabram15.lenghtofservice.view.adapters.OnPeriodDeleteClickListener
 
 class SharedViewModel : ViewModel() {
 
@@ -45,5 +46,15 @@ class SharedViewModel : ViewModel() {
             }
         }
         return true
+    }
+
+    fun getListener(): OnPeriodDeleteClickListener {
+        return object : OnPeriodDeleteClickListener {
+            override fun delete(periodOfService: PeriodOfService) {
+                Thread{
+                    repository.deletePeriod(periodOfService)
+                }.start()
+            }
+        }
     }
 }

@@ -18,7 +18,6 @@ import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 
 class PeriodsOfServiceFragment : Fragment() {
 
-    private val periodsAdapter = PeriodsOfServiceRVAdapter()
     private lateinit var binding: PeriodsOfFragmentBinding
 
     companion object {
@@ -27,6 +26,8 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private lateinit var viewModel: PeriodsOfViewModel
     private lateinit var sharedViewModel : SharedViewModel
+
+    private lateinit var periodsAdapter : PeriodsOfServiceRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +40,8 @@ class PeriodsOfServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelsInit()
+        setAdapter()
         setRecyclerView()
         setListeners()
     }
@@ -52,7 +55,6 @@ class PeriodsOfServiceFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModelsInit()
     }
 
     private fun viewModelsInit() {
@@ -63,8 +65,6 @@ class PeriodsOfServiceFragment : Fragment() {
         sharedViewModel.loadData()
 
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
-
-
     }
 
     private fun render(periods: ArrayList<PeriodOfService>) {
@@ -83,6 +83,10 @@ class PeriodsOfServiceFragment : Fragment() {
                     .create()
                     .show()
         }
+    }
+
+    private fun setAdapter() {
+         periodsAdapter = PeriodsOfServiceRVAdapter(sharedViewModel.getListener())
     }
 
     private fun setListeners() {

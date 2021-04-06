@@ -1,14 +1,13 @@
 package com.dmabram15.lenghtofservice.view.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
 import com.dmabram15.lenghtofservice.model.PeriodOfService
 
-class PeriodsOfServiceRVAdapter : RecyclerView.Adapter<PeriodsOfServiceRVAdapter.PeriodsOfServiceViewHolder>() {
+class PeriodsOfServiceRVAdapter (private val listener : OnPeriodDeleteClickListener) : RecyclerView.Adapter<PeriodsOfServiceRVAdapter.PeriodsOfServiceViewHolder>() {
 
     private var periods = ArrayList<PeriodOfService>()
     private lateinit var binding : LengthServicePeriodItemBinding
@@ -30,6 +29,11 @@ class PeriodsOfServiceRVAdapter : RecyclerView.Adapter<PeriodsOfServiceRVAdapter
                         * periods[position].multiple).toLong()
             )
             multipleCoefficientTextView.text = periods[position].multiple.toString()
+            periodDeleteButton.setOnClickListener{
+                listener.delete(periods[position])
+                periods.remove(periods[position])
+                notifyDataSetChanged()
+            }
         }
     }
 
