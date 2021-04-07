@@ -51,6 +51,9 @@ class SharedViewModel : ViewModel() {
     fun getListener(): OnPeriodDeleteClickListener {
         return object : OnPeriodDeleteClickListener {
             override fun delete(periodOfService: PeriodOfService) {
+                periodsLiveData.apply {
+                    value?.remove(periodOfService)
+                }
                 Thread{
                     repository.deletePeriod(periodOfService)
                 }.start()

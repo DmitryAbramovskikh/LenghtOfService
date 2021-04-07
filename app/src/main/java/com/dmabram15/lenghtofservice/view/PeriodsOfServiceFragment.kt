@@ -58,13 +58,17 @@ class PeriodsOfServiceFragment : Fragment() {
     }
 
     private fun viewModelsInit() {
-        activity?.let {
-            sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
+        activity?.let { activity ->
+            sharedViewModel = ViewModelProvider(activity).get(SharedViewModel::class.java)
         }
-        sharedViewModel.getPeriods().observe(this, { render(it) })
+        setObservers()
         sharedViewModel.loadData()
 
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
+    }
+
+    private fun setObservers() {
+        sharedViewModel.getPeriods().observe(viewLifecycleOwner, { render(it) })
     }
 
     private fun render(periods: ArrayList<PeriodOfService>) {
@@ -92,6 +96,10 @@ class PeriodsOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
+                ?.setCustomAnimations(
+                    R.anim.appear_from_right, R.anim.disappear_to_left,
+                    R.anim.appear_from_left, R.anim.disappear_to_right
+                )
                 ?.replace(R.id.container, EditPeriodFragment.newInstance())
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()

@@ -8,7 +8,7 @@
     <string name="list_of_periods_is_null_message">You period\'s list is null.\nYou need to add new period.</string>
     <string name="allow">Allow</string>
     <string name="edit">Edit</string>
-    <string name="add_new_period">Add new period</string>
+    <string name="add_new_period">ADD NEW PERIOD</string>
     <string name="x1" translatable="false">x1</string>
     <string name="x1_5" translatable="false">x1,5</string>
     <string name="x2" translatable="false">x2</string>
@@ -16,11 +16,19 @@
     <string name="set">set</string>
     <string name="apply">apply</string>
     <string name="get_date_from_calendar">Get date from calendar…</string>
-    <string name="years">years</string>
     <string name="months">months</string>
     <string name="days">days</string>
     <string name="has_collision_periods">Entered period has collision by typed previously</string>
     <string name="not_all_fields_was_filled">Not all fields was filled</string>
     <string name="preferential">preferential</string>
     <string name="calendar">calendar</string>
+    <string name="year_converter">year</string>
+    <string name="many_years_converter">years</string>
+    <string name="some_years_converter">years</string>
+    <string name="many_months_converter">months</string>
+    <string name="month_converter">month</string>
+    <string name="some_months_converter">months</string>
+    <string name="many_days_converter">days</string>
+    <string name="day_converter">day</string>
+    <string name="some_days_converter">days</string>
 </resources>

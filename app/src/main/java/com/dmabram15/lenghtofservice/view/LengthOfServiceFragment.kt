@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
-import com.dmabram15.lenghtofservice.model.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.DateConverter
 import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.viewModel.LengthOfServiceViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
+import com.google.android.material.snackbar.Snackbar
 import java.util.ArrayList
 
 class LengthOfServiceFragment : Fragment() {
@@ -23,7 +24,7 @@ class LengthOfServiceFragment : Fragment() {
     }
 
     private lateinit var viewModel: LengthOfServiceViewModel
-    private lateinit var binding : LenghtOfServiceFragmentBinding
+    private lateinit var binding: LenghtOfServiceFragmentBinding
 
     private val sharedViewModel by lazy {
         activity?.let {
@@ -31,8 +32,10 @@ class LengthOfServiceFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = LenghtOfServiceFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,31 +61,36 @@ class LengthOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.showListOfPeriodsFloatingButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
-                    ?.addToBackStack(null)
-                    ?.commitAllowingStateLoss()
+                ?.setCustomAnimations(
+                    R.anim.appear_from_right, R.anim.disappear_to_left,
+                    R.anim.appear_from_left, R.anim.disappear_to_right
+                )
+                ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
+                ?.addToBackStack(null)
+                ?.commitAllowingStateLoss()
         }
     }
 
-    private fun setObservers(){
-        activity?.let { activity ->
-            sharedViewModel?.getPeriods()?.observe(activity, {renderData(it)})
-        }
+    private fun setObservers() {
+        sharedViewModel?.getPeriods()?.observe(viewLifecycleOwner, { renderData(it) })
     }
 
     private fun renderData(periods: ArrayList<PeriodOfService>?) {
         periods?.let {
-            binding.preferentialLengthOfServiceTextView.text = LongToDateConverter
+            binding.preferentialLengthOfServiceTextView.text = DateConverter
                 .convertDifferent(calculateAllPeriodsLength(it, CALC_WITH_MULTIPLIER))
 
-            binding.calendarLengthOfServiceTextView.text = LongToDateConverter
+            binding.calendarLengthOfServiceTextView.text = DateConverter
                 .convertDifferent(calculateAllPeriodsLength(it, CALC_WITHOUT_MULTIPLIER))
         }
     }
 
-    private fun calculateAllPeriodsLength(periods : ArrayList<PeriodOfService>, calculateMethod : Int) : Long{
-        var result : Long = 0
-        when(calculateMethod) {
+    private fun calculateAllPeriodsLength(
+        periods: ArrayList<PeriodOfService>,
+        calculateMethod: Int
+    ): Long {
+        var result: Long = 0
+        when (calculateMethod) {
             CALC_WITH_MULTIPLIER -> {
                 for (period in periods) {
                     result += ((period.endPeriod - period.beginPeriod) * period.multiple).toLong()

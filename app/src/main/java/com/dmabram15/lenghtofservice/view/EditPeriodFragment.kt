@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
-import com.dmabram15.lenghtofservice.model.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.DateConverter
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -51,9 +51,9 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.getBeginLD().observe(this, { renderBeginDate(it) })
-        viewModel.getEndLD().observe(this, { renderEndDate(it) })
-        viewModel.getMultiplyLD().observe(this, { renderMultiply(it) })
+        viewModel.getBeginLD().observe(viewLifecycleOwner, { renderBeginDate(it) })
+        viewModel.getEndLD().observe(viewLifecycleOwner, { renderEndDate(it) })
+        viewModel.getMultiplyLD().observe(viewLifecycleOwner, { renderMultiply(it) })
     }
 
     private fun setListeners() {
@@ -81,7 +81,7 @@ class EditPeriodFragment : Fragment() {
                 ) {
                     sharedViewModel.setPeriod(it)
                     sharedViewModel.savePeriod(it)
-                    fragmentManager?.popBackStack()
+                    activity?.supportFragmentManager?.popBackStack()
                 } else {
                     snackBarShow(getString(R.string.has_collision_periods))
                 }
@@ -120,12 +120,12 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun renderBeginDate(value: Long) {
-        binding.beginPeriodDateTextView.text = LongToDateConverter
+        binding.beginPeriodDateTextView.text = DateConverter
             .convert(value)
     }
 
     private fun renderEndDate(value: Long) {
-        binding.endPeriodDateTextView.text = LongToDateConverter
+        binding.endPeriodDateTextView.text = DateConverter
             .convert(value)
     }
 

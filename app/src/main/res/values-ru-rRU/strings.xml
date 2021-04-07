@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Выслуга</string>
+    <string name="app_name">ВЫСЛУГА</string>
     <string name="length_of_service_title">ТЕКУЩАЯ ВЫСЛУГА</string>
     <string name="begin_date">Начало периода:</string>
     <string name="end_date">Конец периода:</string>
@@ -9,15 +9,23 @@
     <string name="list_of_periods_is_null_message">Вы не добавили ни одного периода службы.</string>
     <string name="allow">Принять</string>
     <string name="edit">Редактировать</string>
-    <string name="add_new_period">Добавить новый период</string>
+    <string name="add_new_period">ДОБАВИТЬ ПЕРИОД</string>
     <string name="set">Выбрать</string>
     <string name="apply">Принять</string>
     <string name="get_date_from_calendar">Установи дату из календаря…</string>
-    <string name="years">лет</string>
     <string name="months">месяцев</string>
     <string name="days">дней</string>
     <string name="has_collision_periods">Введенный период пересекается с ранее добавленными</string>
     <string name="not_all_fields_was_filled">Не все поля были заполнены</string>
     <string name="preferential">льготная</string>
     <string name="calendar">календарная</string>
+    <string name="many_years_converter">лет</string>
+    <string name="year_converter">год</string>
+    <string name="some_years_converter">года</string>
+    <string name="many_months_converter">месяцев</string>
+    <string name="month_converter">месяц</string>
+    <string name="some_months_converter">месяца</string>
+    <string name="many_days_converter">дней</string>
+    <string name="day_converter">день</string>
+    <string name="some_days_converter">дня</string>
 </resources>
