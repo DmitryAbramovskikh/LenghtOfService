@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_text">#191919</color>
-    <color name="widget_background_color">#E0F2F1</color>
-    <color name="widget_background_dark_color">#7FBD9E</color>
+    <color name="widget_background_color">#b8d687</color>
+    <color name="widget_background_dark_color">#043318</color>
+    <color name="attention_button">#FD2323</color>
 </resources>

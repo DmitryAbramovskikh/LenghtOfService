@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="dark_button_style">
+        <item name="android:backgroundTint">@color/widget_background_dark_color</item>
+        <item name="tint">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:tint">@color/widget_background_dark_color</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="borderWidth">0dp</item>
+    </style>
+    <style name="button_attention_color">
+        <item name="tint">@color/attention_button</item>
+    </style>
+</resources>
