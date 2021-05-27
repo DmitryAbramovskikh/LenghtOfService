@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
@@ -63,10 +62,10 @@ class LengthOfServiceFragment : Fragment() {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
                 ?.setCustomAnimations(
-                    FragmentTransaction.TRANSIT_ENTER_MASK,
-                    FragmentTransaction.TRANSIT_EXIT_MASK,
-                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
-                    FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+                    R.anim.appear_from_rignt,
+                    R.anim.disappear_to_left,
+                    R.anim.appear_from_left,
+                    R.anim.disappear_to_rignt
                 )
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()

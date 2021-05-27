@@ -1,21 +1,16 @@
 package com.dmabram15.lenghtofservice.view
 
-import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.transition.Transition
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.FragmentTransitionImpl
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
 import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
-import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.viewModel.PeriodsOfViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 
@@ -87,10 +82,10 @@ class PeriodsOfServiceFragment : Fragment() {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, EditPeriodFragment.newInstance())
                 ?.setCustomAnimations(
-                    FragmentTransaction.TRANSIT_ENTER_MASK,
-                    FragmentTransaction.TRANSIT_EXIT_MASK,
-                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
-                    FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+                    R.anim.appear_from_rignt,
+                    R.anim.disappear_to_left,
+                    R.anim.appear_from_left,
+                    R.anim.disappear_to_rignt
                 )
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
