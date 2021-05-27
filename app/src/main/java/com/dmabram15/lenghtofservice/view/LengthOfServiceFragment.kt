@@ -56,7 +56,7 @@ class LengthOfServiceFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.showListOfPeriodsFloatingButton.setOnClickListener {
+        binding.editPeriodsButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
                     ?.addToBackStack(null)

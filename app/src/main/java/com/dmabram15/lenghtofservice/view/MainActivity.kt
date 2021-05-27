@@ -12,9 +12,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        setGraphics()
+
         if (savedInstanceState == null) {
             showFragment()
         }
+    }
+
+    private fun setGraphics() {
+        window?.setBackgroundDrawableResource(R.drawable.ic_applicationbackground)
     }
 
     private fun showFragment() {

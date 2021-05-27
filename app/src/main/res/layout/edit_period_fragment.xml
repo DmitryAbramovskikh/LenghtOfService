@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/medium_spacing"
-        >
+        android:layout_margin="@dimen/medium_spacing">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_spacing">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/lengthOfServiceItemTextView"
+            style="@style/TextAppearance.MaterialComponents.Body1.Label"
+            android:id="@+id/beginDateLabelTextView"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_new_period"
-            android:textColor="@color/dark_text"
+            android:text="@string/begin_date"
             android:textSize="@dimen/usual_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/beginDateLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_spacing"
-            android:text="@string/begin_date"
-            android:textSize="@dimen/usual_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lengthOfServiceItemTextView" />
-
-        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:id="@+id/beginPeriodDateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -62,13 +57,14 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/endDateLabelTextView"
+            style="@style/TextAppearance.MaterialComponents.Body1.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_spacing"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:text="@string/end_date"
             android:textSize="@dimen/usual_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/beginPeriodDateTextView"/>
+            app:layout_constraintTop_toBottomOf="@+id/pickStartDate" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/endPeriodDateTextView"
@@ -100,14 +96,14 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/multipleCoefficientLabelTextView"
+            style="@style/TextAppearance.MaterialComponents.Body1.Label"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_spacing"
             android:text="@string/multiple"
             android:textSize="@dimen/usual_text_size"
-            android:layout_marginEnd="@dimen/small_spacing"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/endPeriodDateTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/pickEndDate" />
 
         <RadioGroup
             android:id="@+id/multiplySelectorRadioGroup"
@@ -149,17 +145,22 @@
                 android:text="@string/x3"
                 android:textSize="@dimen/first_header_text_size"/>
         </RadioGroup>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/applyButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/great_spacing"
+            android:backgroundTint="@color/widget_background_dark_color"
             android:text="@string/apply"
             android:textColor="@color/black"
-            android:layout_marginTop="@dimen/small_spacing"
-            android:backgroundTint="@color/widget_background_dark_color"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/multiplySelectorRadioGroup"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/multiplySelectorRadioGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </ScrollView>
