@@ -34,12 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
-            .setCustomAnimations(
-                R.anim.appear_from_rignt,
-                R.anim.disappear_to_left,
-                R.anim.appear_from_left,
-                R.anim.disappear_to_rignt
-            )
             .commitNow()
     }
 }
