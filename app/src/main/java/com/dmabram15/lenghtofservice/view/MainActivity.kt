@@ -3,6 +3,7 @@ package com.dmabram15.lenghtofservice.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
@@ -33,6 +34,12 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
+            .setCustomAnimations(
+                FragmentTransaction.TRANSIT_ENTER_MASK,
+                FragmentTransaction.TRANSIT_EXIT_MASK,
+                FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
+                FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+            )
             .commitNow()
     }
 }

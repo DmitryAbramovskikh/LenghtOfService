@@ -3,10 +3,13 @@ package com.dmabram15.lenghtofservice.view
 import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.transition.Transition
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.FragmentTransitionImpl
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
@@ -74,21 +77,21 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun showAlertIsNull() {
         if (periodsAdapter.itemCount == 0) {
-            AlertDialog.Builder(activity)
-                    .setTitle(getString(R.string.attention))
-                    .setMessage(getString(R.string.list_of_periods_is_null_message))
-                    .setPositiveButton(getString(R.string.allow)) { dialog, _ ->
-                        dialog.cancel()
-                    }
-                    .create()
-                    .show()
+            binding.nothingShowBanner.visibility = View.VISIBLE
         }
+        else binding.nothingShowBanner.visibility = View.GONE
     }
 
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, EditPeriodFragment.newInstance())
+                ?.setCustomAnimations(
+                    FragmentTransaction.TRANSIT_ENTER_MASK,
+                    FragmentTransaction.TRANSIT_EXIT_MASK,
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
+                    FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+                )
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
         }

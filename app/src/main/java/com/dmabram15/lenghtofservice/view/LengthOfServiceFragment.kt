@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
@@ -23,7 +24,7 @@ class LengthOfServiceFragment : Fragment() {
     }
 
     private lateinit var viewModel: LengthOfServiceViewModel
-    private lateinit var binding : LenghtOfServiceFragmentBinding
+    private lateinit var binding: LenghtOfServiceFragmentBinding
 
     private val sharedViewModel by lazy {
         activity?.let {
@@ -31,8 +32,10 @@ class LengthOfServiceFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = LenghtOfServiceFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,15 +61,21 @@ class LengthOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.editPeriodsButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
-                    ?.addToBackStack(null)
-                    ?.commitAllowingStateLoss()
+                ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
+                ?.setCustomAnimations(
+                    FragmentTransaction.TRANSIT_ENTER_MASK,
+                    FragmentTransaction.TRANSIT_EXIT_MASK,
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
+                    FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+                )
+                ?.addToBackStack(null)
+                ?.commitAllowingStateLoss()
         }
     }
 
-    private fun setObservers(){
+    private fun setObservers() {
         activity?.let { activity ->
-            sharedViewModel?.getPeriods()?.observe(activity, {renderData(it)})
+            sharedViewModel?.getPeriods()?.observe(activity, { renderData(it) })
         }
     }
 
@@ -80,9 +89,12 @@ class LengthOfServiceFragment : Fragment() {
         }
     }
 
-    private fun calculateAllPeriodsLength(periods : ArrayList<PeriodOfService>, calculateMethod : Int) : Long{
-        var result : Long = 0
-        when(calculateMethod) {
+    private fun calculateAllPeriodsLength(
+        periods: ArrayList<PeriodOfService>,
+        calculateMethod: Int
+    ): Long {
+        var result: Long = 0
+        when (calculateMethod) {
             CALC_WITH_MULTIPLIER -> {
                 for (period in periods) {
                     result += ((period.endPeriod - period.beginPeriod) * period.multiple).toLong()
