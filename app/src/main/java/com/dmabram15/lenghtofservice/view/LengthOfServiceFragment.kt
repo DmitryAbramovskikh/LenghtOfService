@@ -60,13 +60,13 @@ class LengthOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.editPeriodsButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
                 ?.setCustomAnimations(
                     R.anim.appear_from_rignt,
                     R.anim.disappear_to_left,
                     R.anim.appear_from_left,
                     R.anim.disappear_to_rignt
                 )
+                ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
         }

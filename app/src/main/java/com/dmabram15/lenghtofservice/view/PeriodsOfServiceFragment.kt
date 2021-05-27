@@ -80,13 +80,13 @@ class PeriodsOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, EditPeriodFragment.newInstance())
                 ?.setCustomAnimations(
                     R.anim.appear_from_rignt,
                     R.anim.disappear_to_left,
                     R.anim.appear_from_left,
                     R.anim.disappear_to_rignt
                 )
+                ?.replace(R.id.container, EditPeriodFragment.newInstance())
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
         }
