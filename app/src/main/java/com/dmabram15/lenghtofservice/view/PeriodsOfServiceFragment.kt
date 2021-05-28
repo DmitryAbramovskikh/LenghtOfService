@@ -1,18 +1,16 @@
 package com.dmabram15.lenghtofservice.view
 
-import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
 import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
-import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.viewModel.PeriodsOfViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 
@@ -74,20 +72,20 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun showAlertIsNull() {
         if (periodsAdapter.itemCount == 0) {
-            AlertDialog.Builder(activity)
-                    .setTitle(getString(R.string.attention))
-                    .setMessage(getString(R.string.list_of_periods_is_null_message))
-                    .setPositiveButton(getString(R.string.allow)) { dialog, _ ->
-                        dialog.cancel()
-                    }
-                    .create()
-                    .show()
+            binding.nothingShowBanner.visibility = View.VISIBLE
         }
+        else binding.nothingShowBanner.visibility = View.GONE
     }
 
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
+                ?.setCustomAnimations(
+                    R.anim.appear_from_rignt,
+                    R.anim.disappear_to_left,
+                    R.anim.appear_from_left,
+                    R.anim.disappear_to_rignt
+                )
                 ?.replace(R.id.container, EditPeriodFragment.newInstance())
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()

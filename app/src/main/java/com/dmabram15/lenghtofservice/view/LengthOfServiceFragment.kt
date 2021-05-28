@@ -23,7 +23,7 @@ class LengthOfServiceFragment : Fragment() {
     }
 
     private lateinit var viewModel: LengthOfServiceViewModel
-    private lateinit var binding : LenghtOfServiceFragmentBinding
+    private lateinit var binding: LenghtOfServiceFragmentBinding
 
     private val sharedViewModel by lazy {
         activity?.let {
@@ -31,8 +31,10 @@ class LengthOfServiceFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = LenghtOfServiceFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,15 +60,21 @@ class LengthOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.editPeriodsButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
-                    ?.addToBackStack(null)
-                    ?.commitAllowingStateLoss()
+                ?.setCustomAnimations(
+                    R.anim.appear_from_rignt,
+                    R.anim.disappear_to_left,
+                    R.anim.appear_from_left,
+                    R.anim.disappear_to_rignt
+                )
+                ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
+                ?.addToBackStack(null)
+                ?.commitAllowingStateLoss()
         }
     }
 
-    private fun setObservers(){
+    private fun setObservers() {
         activity?.let { activity ->
-            sharedViewModel?.getPeriods()?.observe(activity, {renderData(it)})
+            sharedViewModel?.getPeriods()?.observe(activity, { renderData(it) })
         }
     }
 
@@ -80,9 +88,12 @@ class LengthOfServiceFragment : Fragment() {
         }
     }
 
-    private fun calculateAllPeriodsLength(periods : ArrayList<PeriodOfService>, calculateMethod : Int) : Long{
-        var result : Long = 0
-        when(calculateMethod) {
+    private fun calculateAllPeriodsLength(
+        periods: ArrayList<PeriodOfService>,
+        calculateMethod: Int
+    ): Long {
+        var result: Long = 0
+        when (calculateMethod) {
             CALC_WITH_MULTIPLIER -> {
                 for (period in periods) {
                     result += ((period.endPeriod - period.beginPeriod) * period.multiple).toLong()
