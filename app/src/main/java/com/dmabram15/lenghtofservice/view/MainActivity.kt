@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setGraphics() {
-        window?.setBackgroundDrawableResource(R.drawable.ic_applicationbackground)
+        window?.setBackgroundDrawableResource(R.drawable.ic_applicationbackground_new)
     }
 
     private fun showFragment() {

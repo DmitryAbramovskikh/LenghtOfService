@@ -24,4 +24,5 @@
     <string name="preferential">preferential</string>
     <string name="calendar">calendar</string>
     <string name="nothing_added">Nothing added</string>
+    <string name="calendar_picker" translatable="false">Calendar picker</string>
 </resources>

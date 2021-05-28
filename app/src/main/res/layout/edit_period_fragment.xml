@@ -27,40 +27,42 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/TextAppearance.MaterialComponents.Body1"
             android:id="@+id/beginPeriodDateTextView"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/backdrop"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/small_spacing"
+            android:layout_height="0dp"
             android:layout_marginEnd="@dimen/medium_spacing"
-            android:textSize="@dimen/usual_text_size"
-            android:hint="@string/get_date_from_calendar"
+            android:background="@drawable/backdrop"
             android:ellipsize="end"
+            android:gravity="center"
+            android:hint="@string/get_date_from_calendar"
+            android:textSize="@dimen/usual_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/pickStartDate"
             app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/beginDateLabelTextView" />
+            app:layout_constraintTop_toTopOf="@+id/pickStartDate" />
 
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/pickStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/set"
-            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/small_spacing"
             android:backgroundTint="@color/widget_background_dark_color"
-            app:icon="@drawable/ic_calendar"
+            android:textColor="@color/black"
+            android:src="@drawable/ic_calendar"
+            android:background="@color/transparent"
+            android:padding="@dimen/small_spacing"
             app:iconTint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/beginPeriodDateTextView"
+            android:contentDescription="@string/calendar_picker"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/beginPeriodDateTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/beginDateLabelTextView" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/endDateLabelTextView"
             style="@style/TextAppearance.MaterialComponents.Body1.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_spacing"
+            android:layout_marginTop="@dimen/average_spacing"
             android:text="@string/end_date"
             android:textSize="@dimen/usual_text_size"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,38 +70,41 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/endPeriodDateTextView"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/medium_spacing"
+            android:layout_height="0dp"
             android:layout_marginEnd="@dimen/medium_spacing"
-            android:gravity="center"
             android:background="@drawable/backdrop"
-            android:textSize="@dimen/usual_text_size"
-            android:hint="@string/get_date_from_calendar"
             android:ellipsize="end"
+            android:gravity="center"
+            android:hint="@string/get_date_from_calendar"
+            android:textSize="@dimen/usual_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/pickEndDate"
             app:layout_constraintEnd_toStartOf="@+id/pickEndDate"
             app:layout_constraintStart_toStartOf="@id/beginPeriodDateTextView"
-            app:layout_constraintTop_toBottomOf="@id/endDateLabelTextView"/>
+            app:layout_constraintTop_toTopOf="@+id/pickEndDate" />
 
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/pickEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/set"
-            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/small_spacing"
             android:backgroundTint="@color/widget_background_dark_color"
-            app:icon="@drawable/ic_calendar"
+            android:textColor="@color/black"
+            android:src="@drawable/ic_calendar"
+            android:background="@color/transparent"
             app:iconTint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/endPeriodDateTextView"
+            android:contentDescription="@string/calendar_picker"
+            android:padding="@dimen/small_spacing"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/endPeriodDateTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/endDateLabelTextView" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/multipleCoefficientLabelTextView"
             style="@style/TextAppearance.MaterialComponents.Body1.Label"
-            android:layout_marginTop="@dimen/medium_spacing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/average_spacing"
             android:text="@string/multiple"
             android:textSize="@dimen/usual_text_size"
             app:layout_constraintStart_toStartOf="parent"

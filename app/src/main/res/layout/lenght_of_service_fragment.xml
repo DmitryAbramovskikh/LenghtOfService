@@ -15,7 +15,6 @@
         android:layout_marginStart="@dimen/average_spacing"
         android:layout_marginEnd="@dimen/average_spacing"
         app:cardCornerRadius="@dimen/small_spacing"
-        app:cardElevation="@dimen/small_spacing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
