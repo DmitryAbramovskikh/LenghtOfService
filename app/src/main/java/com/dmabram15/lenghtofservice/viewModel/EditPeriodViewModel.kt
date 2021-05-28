@@ -14,6 +14,22 @@ class EditPeriodViewModel : ViewModel() {
     fun getEndLD(): MutableLiveData<Long> = endDate
     fun getMultiplyLD(): MutableLiveData<Float> = multiple
 
+    fun getStartDate() =
+        if (beginDate.value != null) {
+            beginDate.value!!
+        }
+        else {
+            System.currentTimeMillis()
+    }
+
+    fun getEndDate() =
+        if (endDate.value != null) {
+            endDate.value!!
+        }
+        else {
+            System.currentTimeMillis()
+        }
+
     fun setBeginDate(value: Long) {
         beginDate.value = value
     }

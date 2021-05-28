@@ -21,4 +21,6 @@
     <string name="preferential">льготная</string>
     <string name="calendar">календарная</string>
     <string name="nothing_added">Ничего не добавлено</string>
+    <string name="set_begin_date">Установи начальную дату</string>
+    <string name="set_end_date">Установи конечную дату</string>
 </resources>

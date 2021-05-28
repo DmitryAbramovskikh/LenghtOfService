@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
@@ -25,26 +26,26 @@ class EditPeriodFragment : Fragment() {
     private lateinit var binding: EditPeriodFragmentBinding
     private var isBeginDatePickClicked: Boolean? = null
 
-    private val dataPicker = MaterialDatePicker.Builder.datePicker().build()
+    private var datePicker = materialDatePickerInitialization()
+
+    private fun materialDatePickerInitialization() = MaterialDatePicker.Builder
+        .datePicker()
+        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = EditPeriodFragmentBinding.inflate(
-            inflater,
-            container,
-            false
-        )
+        binding = EditPeriodFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
-        activity?.let{
-            sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
-        }
+        activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
         setObservers()
         setListeners()
@@ -57,23 +58,25 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun setListeners() {
-        dataPicker.addOnPositiveButtonClickListener { dateLong ->
-            isBeginDatePickClicked?.let {
-                if (it) {
-                    viewModel.setBeginDate(dateLong)
-                } else {
-                    viewModel.setEndDate(dateLong)
-                }
-            }
-        }
+
         binding.pickStartDate.setOnClickListener {
-            isBeginDatePickClicked = true
-            showPicker()
+            val title = getString(R.string.set_begin_date)
+            val date = viewModel.getStartDate()
+            val onClickListener = { dateLong : Long ->
+                viewModel.setBeginDate(dateLong)
+            }
+            pickerShowWithDate(date, title, onClickListener)
         }
+
         binding.pickEndDate.setOnClickListener {
-            isBeginDatePickClicked = false
-            showPicker()
+            val title = getString(R.string.set_begin_date)
+            val date = viewModel.getEndDate()
+            val onClickListener = { dateLong : Long ->
+                viewModel.setEndDate(dateLong)
+            }
+            pickerShowWithDate(date, title, onClickListener)
         }
+
         binding.applyButton.setOnClickListener {
             viewModel.createPeriodOfService()?.let {
                 if (sharedViewModel
@@ -105,18 +108,12 @@ class EditPeriodFragment : Fragment() {
         }
     }
 
-    private fun snackBarShow(text : String) {
+    private fun snackBarShow(text: String) {
         Snackbar.make(
             binding.root,
             text,
             Snackbar.LENGTH_LONG
         ).show()
-    }
-
-    private fun showPicker() {
-        activity?.supportFragmentManager?.let {
-            dataPicker.show(it, null)
-        }
     }
 
     private fun renderBeginDate(value: Long) {
@@ -140,5 +137,12 @@ class EditPeriodFragment : Fragment() {
         )
     }
 
-
+    private fun pickerShowWithDate(date : Long, title : String, onClickListener : (Long) -> Unit) {
+        datePicker = MaterialDatePicker.Builder.datePicker()
+            .setSelection(date)
+            .setTitleText(title)
+            .build()
+        datePicker.addOnPositiveButtonClickListener(onClickListener)
+        datePicker.show(childFragmentManager, "")
+    }
 }
