@@ -25,4 +25,6 @@
     <string name="calendar">calendar</string>
     <string name="nothing_added">Nothing added</string>
     <string name="calendar_picker" translatable="false">Calendar picker</string>
+    <string name="set_begin_date">Set begin date</string>
+    <string name="set_end_date">Set end date</string>
 </resources>
