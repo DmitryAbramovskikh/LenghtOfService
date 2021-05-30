@@ -2,6 +2,7 @@ package com.dmabram15.lenghtofservice.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
@@ -43,12 +44,34 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
         return periods.size
     }
 
-    fun setPeriods(periods : ArrayList<PeriodOfService>) {
-        this.periods.clear()
-        this.periods.addAll(periods)
-
+    fun setPeriods(newPeriods : ArrayList<PeriodOfService>) {
+        val diffResult = DiffUtil.calculateDiff(PeriodsDiffCallback(periods, newPeriods))
+        periods = newPeriods
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    class PeriodsOfServiceViewHolder(val binding : LengthServicePeriodItemBinding)
+    inner class PeriodsOfServiceViewHolder(val binding : LengthServicePeriodItemBinding)
         : RecyclerView.ViewHolder(binding.root)
+
+    inner class PeriodsDiffCallback(
+        private val oldPeriods : ArrayList<PeriodOfService>,
+        private val newPeriods : ArrayList<PeriodOfService>
+    ) : DiffUtil.Callback(){
+        override fun getOldListSize(): Int {
+            return oldPeriods.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newPeriods.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPeriods[oldItemPosition].id == newPeriods[newItemPosition].id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPeriods[oldItemPosition] == newPeriods[newItemPosition]
+        }
+
+    }
 }

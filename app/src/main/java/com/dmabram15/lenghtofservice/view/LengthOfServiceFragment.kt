@@ -41,15 +41,12 @@ class LengthOfServiceFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        sharedViewModel?.getPeriods()?.value?.let {
-            renderData(it)
-        }
+        sharedViewModel?.getPeriods()?.observe(viewLifecycleOwner, { renderData(it) })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-        setObservers()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -69,12 +66,6 @@ class LengthOfServiceFragment : Fragment() {
                 ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
-        }
-    }
-
-    private fun setObservers() {
-        activity?.let { activity ->
-            sharedViewModel?.getPeriods()?.observe(activity, { renderData(it) })
         }
     }
 

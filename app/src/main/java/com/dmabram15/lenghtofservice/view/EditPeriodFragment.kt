@@ -51,9 +51,8 @@ class EditPeriodFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
@@ -67,9 +66,9 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.getBeginLD().observe(this, { renderBeginDate(it) })
-        viewModel.getEndLD().observe(this, { renderEndDate(it) })
-        viewModel.getMultiplyLD().observe(this, { renderMultiply(it) })
+        viewModel.getBeginLD().observe(viewLifecycleOwner, { renderBeginDate(it) })
+        viewModel.getEndLD().observe(viewLifecycleOwner, { renderEndDate(it) })
+        viewModel.getMultiplyLD().observe(viewLifecycleOwner, { renderMultiply(it) })
     }
 
     private fun setListeners() {
