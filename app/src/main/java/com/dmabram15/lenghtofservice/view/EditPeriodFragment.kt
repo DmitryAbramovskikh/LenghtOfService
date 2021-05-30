@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -18,13 +18,23 @@ import com.google.android.material.snackbar.Snackbar
 class EditPeriodFragment : Fragment() {
 
     companion object {
-        fun newInstance() = EditPeriodFragment()
+
+        private const val PERIOD_KEY = "period"
+
+        fun newInstance(periodOfService : PeriodOfService?) : EditPeriodFragment =
+            if (periodOfService != null) {
+                val bundle = Bundle()
+                bundle.putParcelable(PERIOD_KEY, periodOfService)
+                val fragment = EditPeriodFragment()
+                fragment.arguments = bundle
+                fragment
+            } else EditPeriodFragment()
     }
 
     private lateinit var viewModel: EditPeriodViewModel
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var binding: EditPeriodFragmentBinding
-    private var isBeginDatePickClicked: Boolean? = null
+    private var openedId = 0
 
     private var datePicker = materialDatePickerInitialization()
 
@@ -46,6 +56,11 @@ class EditPeriodFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
+
+        arguments?.getParcelable<PeriodOfService>(PERIOD_KEY)?.let {
+            openedId = it.id
+            viewModel.setPeriod(it)
+        }
 
         setObservers()
         setListeners()
@@ -78,13 +93,13 @@ class EditPeriodFragment : Fragment() {
         }
 
         binding.applyButton.setOnClickListener {
-            viewModel.createPeriodOfService()?.let {
+            viewModel.createPeriodOfService(openedId)?.let {
                 if (sharedViewModel
                         .checkPeriodsCollision(it)
                 ) {
                     sharedViewModel.setPeriod(it)
                     sharedViewModel.savePeriod(it)
-                    fragmentManager?.popBackStack()
+                    activity?.onBackPressed()
                 } else {
                     snackBarShow(getString(R.string.has_collision_periods))
                 }

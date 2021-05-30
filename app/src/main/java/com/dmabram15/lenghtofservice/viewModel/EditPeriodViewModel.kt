@@ -42,17 +42,23 @@ class EditPeriodViewModel : ViewModel() {
         multiple.value = value
     }
 
-    fun createPeriodOfService(): PeriodOfService? {
+    fun createPeriodOfService(id : Int): PeriodOfService? {
         return if (beginDate.value != null
             && endDate.value != null
             && multiple.value != null
         ) {
             PeriodOfService(
-                0,
+                id,
                 beginDate.value!!,
                 endDate.value!!,
                 multiple.value!!
             )
         } else null
+    }
+
+    fun setPeriod(period: PeriodOfService) {
+        beginDate.value =  period.beginPeriod
+        endDate.value = period.endPeriod
+        multiple.value = period.multiple
     }
 }

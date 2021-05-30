@@ -16,7 +16,7 @@ import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 
 class PeriodsOfServiceFragment : Fragment() {
 
-    private val periodsAdapter = PeriodsOfServiceRVAdapter()
+    private lateinit var periodsAdapter : PeriodsOfServiceRVAdapter
     private lateinit var binding: PeriodsOfFragmentBinding
 
     companion object {
@@ -37,32 +37,39 @@ class PeriodsOfServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelsInit()
         setRecyclerView()
         setListeners()
     }
 
     override fun onResume() {
         super.onResume()
-        sharedViewModel.getPeriods().value?.let {
-            render(it)
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModelsInit()
+        sharedViewModel.getPeriods().observe(this, { render(it) })
+        sharedViewModel.observableItem().observe(this, {startEditFragment(it)})
     }
 
     private fun viewModelsInit() {
         activity?.let {
             sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
         }
-        sharedViewModel.getPeriods().observe(this, { render(it) })
         sharedViewModel.loadData()
 
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
+    }
 
-
+    private fun startEditFragment(it: PeriodOfService?) {
+        it?.let {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.setCustomAnimations(
+                    R.anim.appear_from_rignt,
+                    R.anim.disappear_to_left,
+                    R.anim.appear_from_left,
+                    R.anim.disappear_to_rignt
+                )
+                ?.replace(R.id.container, EditPeriodFragment.newInstance(it))
+                ?.addToBackStack(null)
+                ?.commitAllowingStateLoss()
+        }
     }
 
     private fun render(periods: ArrayList<PeriodOfService>) {
@@ -86,13 +93,14 @@ class PeriodsOfServiceFragment : Fragment() {
                     R.anim.appear_from_left,
                     R.anim.disappear_to_rignt
                 )
-                ?.replace(R.id.container, EditPeriodFragment.newInstance())
+                ?.replace(R.id.container, EditPeriodFragment.newInstance(null))
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
         }
     }
 
     private fun setRecyclerView() {
+        periodsAdapter = PeriodsOfServiceRVAdapter(sharedViewModel)
         binding.periodsRecyclerView.apply {
             this.adapter = periodsAdapter
             val lm = LinearLayoutManager(context)

@@ -11,4 +11,6 @@
     <color name="widget_background_color">#E0F2F1</color>
     <color name="widget_background_dark_color">#0C9200</color>
     <color name="transparent">#00ffffff</color>
+    <color name="delete_button_tint">#E33636</color>
+    <color name="edit_button_tint">#3675E3</color>
 </resources>
