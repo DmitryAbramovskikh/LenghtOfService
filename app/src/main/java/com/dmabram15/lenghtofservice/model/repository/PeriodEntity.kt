@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "periods_table")
 data class PeriodEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     val id : Int,
     @ColumnInfo(name = "begin_period") val beginPeriod : Long,
     @ColumnInfo(name = "end_period") val endPeriod : Long,

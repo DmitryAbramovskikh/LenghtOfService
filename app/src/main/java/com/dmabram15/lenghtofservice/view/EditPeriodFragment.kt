@@ -21,7 +21,7 @@ class EditPeriodFragment : Fragment() {
 
         private const val PERIOD_KEY = "period"
 
-        fun newInstance(periodOfService : PeriodOfService?) : EditPeriodFragment =
+        fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
             if (periodOfService != null) {
                 val bundle = Bundle()
                 bundle.putParcelable(PERIOD_KEY, periodOfService)
@@ -56,11 +56,14 @@ class EditPeriodFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
-        arguments?.getParcelable<PeriodOfService>(PERIOD_KEY)?.let {
-            openedId = it.id
-            viewModel.setPeriod(it)
+        val period: PeriodOfService? = arguments?.getParcelable(PERIOD_KEY)
+        openedId = when (period) {
+            null -> 0
+            else -> {
+                viewModel.setPeriod(period)
+                period.id
+            }
         }
-
         setObservers()
         setListeners()
     }
@@ -76,28 +79,28 @@ class EditPeriodFragment : Fragment() {
         binding.pickStartDate.setOnClickListener {
             val title = getString(R.string.set_begin_date)
             val date = viewModel.getStartDate()
-            val onClickListener = { dateLong : Long ->
+            val onClickListener = { dateLong: Long ->
                 viewModel.setBeginDate(dateLong)
             }
             pickerShowWithDate(date, title, onClickListener)
         }
 
         binding.pickEndDate.setOnClickListener {
-            val title = getString(R.string.set_begin_date)
+            val title = getString(R.string.set_end_date)
             val date = viewModel.getEndDate()
-            val onClickListener = { dateLong : Long ->
+            val onClickListener = { dateLong: Long ->
                 viewModel.setEndDate(dateLong)
             }
             pickerShowWithDate(date, title, onClickListener)
         }
 
         binding.applyButton.setOnClickListener {
+            if (openedId == 0) openedId = sharedViewModel.getNextId()
             viewModel.createPeriodOfService(openedId)?.let {
                 if (sharedViewModel
                         .checkPeriodsCollision(it)
                 ) {
                     sharedViewModel.setPeriod(it)
-                    sharedViewModel.savePeriod(it)
                     activity?.onBackPressed()
                 } else {
                     snackBarShow(getString(R.string.has_collision_periods))
@@ -151,7 +154,7 @@ class EditPeriodFragment : Fragment() {
         )
     }
 
-    private fun pickerShowWithDate(date : Long, title : String, onClickListener : (Long) -> Unit) {
+    private fun pickerShowWithDate(date: Long, title: String, onClickListener: (Long) -> Unit) {
         datePicker = MaterialDatePicker.Builder.datePicker()
             .setSelection(date)
             .setTitleText(title)

@@ -13,14 +13,15 @@ class RoomRepositoryImpl : RoomRepository {
     }
 
     override fun savePeriod(periodOfService: PeriodOfService) {
-        when (periodOfService.id) {
-            0 -> periodsDAO.insertPeriod(modelInDaoConverter(periodOfService))
-            else -> periodsDAO.updatePeriod(modelInDaoConverter(periodOfService))
-        }
+        periodsDAO.insertPeriod(modelInDaoConverter(periodOfService))
     }
 
     override fun deletePeriod(periodOfService: PeriodOfService) {
         periodsDAO.deletePeriod(modelInDaoConverter(periodOfService))
+    }
+
+    override fun dropDatabase() {
+        periodsDAO.dropDatabase()
     }
 
     private fun modelInDaoConverter(periodOfService: PeriodOfService): PeriodEntity {

@@ -8,6 +8,7 @@ import com.dmabram15.lenghtofservice.model.repository.RoomRepository
 import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl
 import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel(), OnChangeListListener {
@@ -15,6 +16,8 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
     private val periodsLiveData = MutableLiveData<ArrayList<PeriodOfService>>()
     private var repository: RoomRepository = RoomRepositoryImpl()
     private var editableItem = MutableLiveData<PeriodOfService?>()
+
+    private var idKey = 0
 
     init {
         loadData()
@@ -32,8 +35,8 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
         periodsLiveData.value?.add(period)
     }
 
-    fun savePeriod(periodOfService: PeriodOfService) {
-        viewModelScope.launch(Dispatchers.IO) {
+    private fun savePeriod(periodOfService: PeriodOfService) {
+        GlobalScope.launch(Dispatchers.IO) {
             repository.savePeriod(periodOfService)
         }
     }
@@ -42,7 +45,22 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
         viewModelScope.launch(Dispatchers.IO) {
             if (periodsLiveData.value == null) {
                 val periods = repository.getAllPeriods()
+                if (periods.size > 0) {
+                    idKey = periods[periods.size - 1].id
+                }
                 periodsLiveData.postValue(periods)
+            }
+        }
+    }
+
+    fun saveData() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val periods = periodsLiveData.value
+            if (periods != null) {
+                repository.dropDatabase()
+                for (period in periods) {
+                    savePeriod(period)
+                }
             }
         }
     }
@@ -64,10 +82,7 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
 
     override fun delete(position: Int) {
         val periodToDeleting = periodsLiveData.value?.get(position)
-        periodToDeleting?.let { period ->
-            viewModelScope.launch(Dispatchers.IO) {
-                repository.deletePeriod(period)
-            }
+        periodToDeleting?.let {
             periodsLiveData.value = periodsLiveData.value?.filter { it != periodToDeleting } as ArrayList<PeriodOfService>
         }
     }
@@ -78,4 +93,6 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
             editableItem.value = null
         }
     }
+
+    fun getNextId() = ++idKey
 }
