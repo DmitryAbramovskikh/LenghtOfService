@@ -112,48 +112,63 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/multiplySelectorChipsGroup"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:singleSelection="true"
+            app:chipSpacingHorizontal="@dimen/average_spacing"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/multipleCoefficientLabelTextView"
-            app:layout_constraintStart_toStartOf="parent">
+            app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/x10multiplierChip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/x1"
-                android:textSize="@dimen/usual_text_size"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/x10multiplierChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x1"
+                    android:textSize="@dimen/usual_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/x15multiplierChip"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/x15multiplierChip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_spacing"
-                android:text="@string/x1_5"
-                android:textSize="@dimen/usual_text_size" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/x15multiplierChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x1_5"
+                    android:textSize="@dimen/usual_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/x10multiplierChip"
+                    app:layout_constraintEnd_toStartOf="@+id/x20multiplierChip"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/x20multiplierChip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_spacing"
-                android:text="@string/x2"
-                android:textSize="@dimen/usual_text_size"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/x20multiplierChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x2"
+                    android:textSize="@dimen/usual_text_size"
+                    app:layout_constraintStart_toEndOf="@id/x15multiplierChip"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/x30multiplierChip"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/x30multiplierChip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_spacing"
-                android:text="@string/x3"
-                android:textSize="@dimen/usual_text_size"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/x30multiplierChip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x3"
+                    android:textSize="@dimen/usual_text_size"
+                    app:layout_constraintStart_toEndOf="@id/x20multiplierChip"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
         </com.google.android.material.chip.ChipGroup>
 
