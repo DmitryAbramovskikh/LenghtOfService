@@ -11,7 +11,8 @@
     <dimen name="great_spacing">32dp</dimen>
     <dimen name="average_spacing">24dp</dimen>
     <dimen name="medium_spacing">16dp</dimen>
-    <dimen name="small_spacing">8dp</dimen>
+    <dimen name="small_spacing">4dp</dimen>
+    <dimen name="material_border_margin">16dp</dimen>
 
     <!-- Drawable dimens -->
     <dimen name="border_width">1dp</dimen>

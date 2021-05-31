@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -18,13 +18,23 @@ import com.google.android.material.snackbar.Snackbar
 class EditPeriodFragment : Fragment() {
 
     companion object {
-        fun newInstance() = EditPeriodFragment()
+
+        private const val PERIOD_KEY = "period"
+
+        fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
+            if (periodOfService != null) {
+                val bundle = Bundle()
+                bundle.putParcelable(PERIOD_KEY, periodOfService)
+                val fragment = EditPeriodFragment()
+                fragment.arguments = bundle
+                fragment
+            } else EditPeriodFragment()
     }
 
     private lateinit var viewModel: EditPeriodViewModel
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var binding: EditPeriodFragmentBinding
-    private var isBeginDatePickClicked: Boolean? = null
+    private var openedId = 0
 
     private var datePicker = materialDatePickerInitialization()
 
@@ -41,20 +51,27 @@ class EditPeriodFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
+        val period: PeriodOfService? = arguments?.getParcelable(PERIOD_KEY)
+        openedId = when (period) {
+            null -> 0
+            else -> {
+                viewModel.setPeriod(period)
+                period.id
+            }
+        }
         setObservers()
         setListeners()
     }
 
     private fun setObservers() {
-        viewModel.getBeginLD().observe(this, { renderBeginDate(it) })
-        viewModel.getEndLD().observe(this, { renderEndDate(it) })
-        viewModel.getMultiplyLD().observe(this, { renderMultiply(it) })
+        viewModel.getBeginLD().observe(viewLifecycleOwner, { renderBeginDate(it) })
+        viewModel.getEndLD().observe(viewLifecycleOwner, { renderEndDate(it) })
+        viewModel.getMultiplyLD().observe(viewLifecycleOwner, { renderMultiply(it) })
     }
 
     private fun setListeners() {
@@ -62,29 +79,29 @@ class EditPeriodFragment : Fragment() {
         binding.pickStartDate.setOnClickListener {
             val title = getString(R.string.set_begin_date)
             val date = viewModel.getStartDate()
-            val onClickListener = { dateLong : Long ->
+            val onClickListener = { dateLong: Long ->
                 viewModel.setBeginDate(dateLong)
             }
             pickerShowWithDate(date, title, onClickListener)
         }
 
         binding.pickEndDate.setOnClickListener {
-            val title = getString(R.string.set_begin_date)
+            val title = getString(R.string.set_end_date)
             val date = viewModel.getEndDate()
-            val onClickListener = { dateLong : Long ->
+            val onClickListener = { dateLong: Long ->
                 viewModel.setEndDate(dateLong)
             }
             pickerShowWithDate(date, title, onClickListener)
         }
 
         binding.applyButton.setOnClickListener {
-            viewModel.createPeriodOfService()?.let {
+            if (openedId == 0) openedId = sharedViewModel.getNextId()
+            viewModel.createPeriodOfService(openedId)?.let {
                 if (sharedViewModel
                         .checkPeriodsCollision(it)
                 ) {
                     sharedViewModel.setPeriod(it)
-                    sharedViewModel.savePeriod(it)
-                    fragmentManager?.popBackStack()
+                    activity?.onBackPressed()
                 } else {
                     snackBarShow(getString(R.string.has_collision_periods))
                 }
@@ -137,7 +154,7 @@ class EditPeriodFragment : Fragment() {
         )
     }
 
-    private fun pickerShowWithDate(date : Long, title : String, onClickListener : (Long) -> Unit) {
+    private fun pickerShowWithDate(date: Long, title: String, onClickListener: (Long) -> Unit) {
         datePicker = MaterialDatePicker.Builder.datePicker()
             .setSelection(date)
             .setTitleText(title)

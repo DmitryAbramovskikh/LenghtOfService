@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmabram15.lenghtofservice.R
@@ -13,10 +14,11 @@ import com.dmabram15.lenghtofservice.model.PeriodOfService
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
 import com.dmabram15.lenghtofservice.viewModel.PeriodsOfViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
+import java.util.*
 
 class PeriodsOfServiceFragment : Fragment() {
 
-    private val periodsAdapter = PeriodsOfServiceRVAdapter()
+    private lateinit var periodsAdapter: PeriodsOfServiceRVAdapter
     private lateinit var binding: PeriodsOfFragmentBinding
 
     companion object {
@@ -24,7 +26,7 @@ class PeriodsOfServiceFragment : Fragment() {
     }
 
     private lateinit var viewModel: PeriodsOfViewModel
-    private lateinit var sharedViewModel : SharedViewModel
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,44 +39,50 @@ class PeriodsOfServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelsInit()
         setRecyclerView()
         setListeners()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sharedViewModel.getPeriods().value?.let {
-            render(it)
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModelsInit()
     }
 
     private fun viewModelsInit() {
         activity?.let {
             sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
         }
-        sharedViewModel.getPeriods().observe(this, { render(it) })
         sharedViewModel.loadData()
-
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
+    }
 
+    override fun onResume() {
+        sharedViewModel.getPeriods().observe(viewLifecycleOwner, { render(it) })
+        sharedViewModel.observableItem().observe(viewLifecycleOwner, { startEditFragment(it) })
+        super.onResume()
+    }
 
+    private fun startEditFragment(it: PeriodOfService?) {
+        it?.let {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.setCustomAnimations(
+                    R.anim.appear_from_rignt,
+                    R.anim.disappear_to_left,
+                    R.anim.appear_from_left,
+                    R.anim.disappear_to_rignt
+                )
+                ?.replace(R.id.container, EditPeriodFragment.newInstance(it))
+                ?.addToBackStack(null)
+                ?.commitAllowingStateLoss()
+        }
     }
 
     private fun render(periods: ArrayList<PeriodOfService>) {
         periodsAdapter.setPeriods(periods)
-        showAlertIsNull()
+        showAlertIfNull(periods.size)
     }
 
-    private fun showAlertIsNull() {
-        if (periodsAdapter.itemCount == 0) {
+    //Отображает баннер в случае пустого списка
+    private fun showAlertIfNull(size : Int) {
+        if (size == 0) {
             binding.nothingShowBanner.visibility = View.VISIBLE
-        }
-        else binding.nothingShowBanner.visibility = View.GONE
+        } else binding.nothingShowBanner.visibility = View.GONE
     }
 
     private fun setListeners() {
@@ -86,13 +94,14 @@ class PeriodsOfServiceFragment : Fragment() {
                     R.anim.appear_from_left,
                     R.anim.disappear_to_rignt
                 )
-                ?.replace(R.id.container, EditPeriodFragment.newInstance())
+                ?.replace(R.id.container, EditPeriodFragment.newInstance(null))
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
         }
     }
 
     private fun setRecyclerView() {
+        periodsAdapter = PeriodsOfServiceRVAdapter(sharedViewModel)
         binding.periodsRecyclerView.apply {
             this.adapter = periodsAdapter
             val lm = LinearLayoutManager(context)

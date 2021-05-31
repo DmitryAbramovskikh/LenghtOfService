@@ -15,4 +15,7 @@ interface PeriodsDAO {
 
     @Insert
     fun insertPeriod(periodEntity: PeriodEntity)
+
+    @Query("DELETE from periods_table")
+    fun dropDatabase()
 }
