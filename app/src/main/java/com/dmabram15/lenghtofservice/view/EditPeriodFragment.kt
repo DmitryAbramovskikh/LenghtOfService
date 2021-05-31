@@ -107,18 +107,18 @@ class EditPeriodFragment : Fragment() {
                 }
             } ?: snackBarShow(getString(R.string.not_all_fields_was_filled))
         }
-        binding.multiplySelectorRadioGroup.setOnCheckedChangeListener { _, i ->
+        binding.multiplySelectorChipsGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
-                binding.x10multiplierRB.id -> {
+                binding.x10multiplierChip.id -> {
                     viewModel.setMultiple(1.0f)
                 }
-                binding.x15multiplierRB.id -> {
+                binding.x15multiplierChip.id -> {
                     viewModel.setMultiple(1.5f)
                 }
-                binding.x20multiplierRB.id -> {
+                binding.x20multiplierChip.id -> {
                     viewModel.setMultiple(2.0f)
                 }
-                binding.x30multiplierRB.id -> {
+                binding.x30multiplierChip.id -> {
                     viewModel.setMultiple(3.0f)
                 }
             }
@@ -144,12 +144,12 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun renderMultiply(value: Float) {
-        binding.multiplySelectorRadioGroup.check(
+        binding.multiplySelectorChipsGroup.check(
             when (value) {
-                1.0f -> R.id.x10multiplierRB
-                1.5f -> R.id.x15multiplierRB
-                2.0f -> R.id.x20multiplierRB
-                else -> R.id.x30multiplierRB
+                1.0f -> R.id.x10multiplierChip
+                1.5f -> R.id.x15multiplierChip
+                2.0f -> R.id.x20multiplierChip
+                else -> R.id.x30multiplierChip
             }
         )
     }

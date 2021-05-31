@@ -80,18 +80,15 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
         return true
     }
 
-    override fun delete(position: Int) {
-        val periodToDeleting = periodsLiveData.value?.get(position)
-        periodToDeleting?.let {
-            periodsLiveData.value = periodsLiveData.value?.filter { it != periodToDeleting } as ArrayList<PeriodOfService>
-        }
+    override fun delete(id: Int) {
+            periodsLiveData.value = periodsLiveData.value?.filter { it.id != id } as ArrayList<PeriodOfService>
     }
 
-    override fun edit(position: Int) {
-        periodsLiveData.value?.get(position)?.let {
-            editableItem.value = it
-            editableItem.value = null
+    override fun edit(id: Int) {
+        periodsLiveData.value?.first {it.id == id}?.let { period ->
+            editableItem.value = period
         }
+        editableItem.value = null
     }
 
     fun getNextId() = ++idKey

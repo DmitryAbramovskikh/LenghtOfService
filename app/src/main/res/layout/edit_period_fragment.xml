@@ -110,46 +110,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pickEndDate" />
 
-        <RadioGroup
-            android:id="@+id/multiplySelectorRadioGroup"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/multiplySelectorChipsGroup"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:orientation="horizontal"
+            app:singleSelection="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/multipleCoefficientLabelTextView"
             app:layout_constraintStart_toStartOf="parent">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/x10multiplierRB"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/x10multiplierChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/x1"
-                android:textSize="@dimen/first_header_text_size"/>
+                android:textSize="@dimen/usual_text_size"/>
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/x15multiplierRB"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/x15multiplierChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_spacing"
                 android:text="@string/x1_5"
-                android:textSize="@dimen/first_header_text_size" />
+                android:textSize="@dimen/usual_text_size" />
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/x20multiplierRB"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/x20multiplierChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_spacing"
                 android:text="@string/x2"
-                android:textSize="@dimen/first_header_text_size"/>
+                android:textSize="@dimen/usual_text_size"/>
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/x30multiplierRB"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/x30multiplierChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_spacing"
                 android:text="@string/x3"
-                android:textSize="@dimen/first_header_text_size"/>
-        </RadioGroup>
+                android:textSize="@dimen/usual_text_size"/>
+
+        </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/applyButton"
@@ -162,7 +168,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/multiplySelectorRadioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/multiplySelectorChipsGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
