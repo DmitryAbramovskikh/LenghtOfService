@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
@@ -19,16 +20,16 @@ class EditPeriodFragment : Fragment() {
 
     companion object {
 
-        private const val PERIOD_KEY = "period"
+        fun newInstance() = EditPeriodFragment()
 
-        fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
+        /*fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
             if (periodOfService != null) {
                 val bundle = Bundle()
                 bundle.putParcelable(PERIOD_KEY, periodOfService)
                 val fragment = EditPeriodFragment()
                 fragment.arguments = bundle
                 fragment
-            } else EditPeriodFragment()
+            } else EditPeriodFragment()*/
     }
 
     private lateinit var viewModel: EditPeriodViewModel
@@ -56,14 +57,19 @@ class EditPeriodFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
-        val period: PeriodOfService? = arguments?.getParcelable(PERIOD_KEY)
+        var period : PeriodOfService? = null
+        arguments?.let {
+            val args = EditPeriodFragmentArgs.fromBundle(it)
+             period = args.period
+        }
         openedId = when (period) {
             null -> 0
             else -> {
-                viewModel.setPeriod(period)
-                period.id
+                viewModel.setPeriod(period!!)
+                period!!.id
             }
         }
+
         setObservers()
         setListeners()
     }

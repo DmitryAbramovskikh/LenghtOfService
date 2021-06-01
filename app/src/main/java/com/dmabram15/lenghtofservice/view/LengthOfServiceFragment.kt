@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
 import com.dmabram15.lenghtofservice.model.LongToDateConverter
@@ -52,16 +53,7 @@ class LengthOfServiceFragment : Fragment() {
 
     private fun setListeners() {
         binding.editPeriodsButton.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.setCustomAnimations(
-                    R.anim.appear_from_rignt,
-                    R.anim.disappear_to_left,
-                    R.anim.appear_from_left,
-                    R.anim.disappear_to_rignt
-                )
-                ?.replace(R.id.container, PeriodsOfServiceFragment.newInstance())
-                ?.addToBackStack(null)
-                ?.commitAllowingStateLoss()
+            findNavController().navigate(R.id.action_lengthOfServiceFragment_to_periodsOfServiceFragment)
         }
     }
 

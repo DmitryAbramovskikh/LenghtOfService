@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
@@ -38,7 +39,6 @@ class PeriodsOfServiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModelsInit()
         setRecyclerView()
         setListeners()
@@ -60,16 +60,10 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun startEditFragment(it: PeriodOfService?) {
         it?.let {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.setCustomAnimations(
-                    R.anim.appear_from_rignt,
-                    R.anim.disappear_to_left,
-                    R.anim.appear_from_left,
-                    R.anim.disappear_to_rignt
-                )
-                ?.replace(R.id.container, EditPeriodFragment.newInstance(it))
-                ?.addToBackStack(null)
-                ?.commitAllowingStateLoss()
+            val navController = findNavController()
+            val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
+            action.period = it
+            navController.navigate(action)
         }
     }
 
@@ -94,7 +88,7 @@ class PeriodsOfServiceFragment : Fragment() {
                     R.anim.appear_from_left,
                     R.anim.disappear_to_rignt
                 )
-                ?.replace(R.id.container, EditPeriodFragment.newInstance(null))
+                ?.replace(R.id.container, EditPeriodFragment.newInstance())
                 ?.addToBackStack(null)
                 ?.commitAllowingStateLoss()
         }
