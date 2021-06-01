@@ -13,10 +13,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
 
         setGraphics()
-
-        if (savedInstanceState == null) {
-            showFragment()
-        }
     }
 
     override fun onPause() {
@@ -26,17 +22,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun setGraphics() {
         window?.setBackgroundDrawableResource(R.drawable.ic_applicationbackground_new)
-    }
-
-    private fun showFragment() {
-        val fragment = if (supportFragmentManager.backStackEntryCount == 0) {
-            LengthOfServiceFragment.newInstance()
-        } else {
-            supportFragmentManager
-                .fragments[supportFragmentManager.fragments.size]
-        }
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
-            .commitNow()
     }
 }

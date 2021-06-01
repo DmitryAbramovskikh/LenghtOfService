@@ -41,7 +41,7 @@ class RoomRepositoryImpl : RoomRepository {
                     it.id,
                     it.beginPeriod,
                     it.endPeriod,
-                    it.multiple
+                    it.multiple,
                 )
             }
         )

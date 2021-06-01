@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
@@ -19,16 +20,16 @@ class EditPeriodFragment : Fragment() {
 
     companion object {
 
-        private const val PERIOD_KEY = "period"
+        fun newInstance() = EditPeriodFragment()
 
-        fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
+        /*fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
             if (periodOfService != null) {
                 val bundle = Bundle()
                 bundle.putParcelable(PERIOD_KEY, periodOfService)
                 val fragment = EditPeriodFragment()
                 fragment.arguments = bundle
                 fragment
-            } else EditPeriodFragment()
+            } else EditPeriodFragment()*/
     }
 
     private lateinit var viewModel: EditPeriodViewModel
@@ -56,14 +57,19 @@ class EditPeriodFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
-        val period: PeriodOfService? = arguments?.getParcelable(PERIOD_KEY)
+        var period : PeriodOfService? = null
+        arguments?.let {
+            val args = EditPeriodFragmentArgs.fromBundle(it)
+             period = args.period
+        }
         openedId = when (period) {
             null -> 0
             else -> {
-                viewModel.setPeriod(period)
-                period.id
+                viewModel.setPeriod(period!!)
+                period!!.id
             }
         }
+
         setObservers()
         setListeners()
     }
@@ -107,18 +113,18 @@ class EditPeriodFragment : Fragment() {
                 }
             } ?: snackBarShow(getString(R.string.not_all_fields_was_filled))
         }
-        binding.multiplySelectorRadioGroup.setOnCheckedChangeListener { _, i ->
+        binding.multiplySelectorChipsGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
-                binding.x10multiplierRB.id -> {
+                binding.x10multiplierChip.id -> {
                     viewModel.setMultiple(1.0f)
                 }
-                binding.x15multiplierRB.id -> {
+                binding.x15multiplierChip.id -> {
                     viewModel.setMultiple(1.5f)
                 }
-                binding.x20multiplierRB.id -> {
+                binding.x20multiplierChip.id -> {
                     viewModel.setMultiple(2.0f)
                 }
-                binding.x30multiplierRB.id -> {
+                binding.x30multiplierChip.id -> {
                     viewModel.setMultiple(3.0f)
                 }
             }
@@ -144,12 +150,12 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun renderMultiply(value: Float) {
-        binding.multiplySelectorRadioGroup.check(
+        binding.multiplySelectorChipsGroup.check(
             when (value) {
-                1.0f -> R.id.x10multiplierRB
-                1.5f -> R.id.x15multiplierRB
-                2.0f -> R.id.x20multiplierRB
-                else -> R.id.x30multiplierRB
+                1.0f -> R.id.x10multiplierChip
+                1.5f -> R.id.x15multiplierChip
+                2.0f -> R.id.x20multiplierChip
+                else -> R.id.x30multiplierChip
             }
         )
     }

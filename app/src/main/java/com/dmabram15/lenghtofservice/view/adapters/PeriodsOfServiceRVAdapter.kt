@@ -16,10 +16,11 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodsOfServiceViewHolder {
         binding = LengthServicePeriodItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return PeriodsOfServiceViewHolder(binding)
+        return PeriodsOfServiceViewHolder(binding, 0)
     }
 
     override fun onBindViewHolder(holder: PeriodsOfServiceViewHolder, position: Int) {
+        holder.id = periods[position].id
         holder.binding.apply {
             beginPeriodDateTextView.text = LongToDateConverter
                 .convert(periods[position].beginPeriod)
@@ -32,10 +33,10 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
             )
             multipleCoefficientTextView.text = periods[position].multiple.toString()
             deleteItemButton.setOnClickListener {
-                onChangeListListener.delete(position)
+                onChangeListListener.delete(holder.id)
             }
             editItemButton.setOnClickListener {
-                onChangeListListener.edit(position)
+                onChangeListListener.edit(holder.id)
             }
         }
     }
@@ -45,17 +46,22 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
     }
 
     fun setPeriods(newPeriods : ArrayList<PeriodOfService>) {
-        val diffResult = DiffUtil.calculateDiff(PeriodsDiffCallback(periods, newPeriods))
-        periods = newPeriods
+        val sortedNewPeriod = ArrayList<PeriodOfService>(0)
+        sortedNewPeriod.addAll(newPeriods.sortedBy { it.beginPeriod })
+        val diffResult = DiffUtil.calculateDiff(PeriodsDiffCallback(periods, sortedNewPeriod))
+        periods.let {
+            periods.clear()
+            periods = sortedNewPeriod
+        }
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class PeriodsOfServiceViewHolder(val binding : LengthServicePeriodItemBinding)
+    inner class PeriodsOfServiceViewHolder(val binding : LengthServicePeriodItemBinding, var id : Int)
         : RecyclerView.ViewHolder(binding.root)
 
     inner class PeriodsDiffCallback(
-        private val oldPeriods : ArrayList<PeriodOfService>,
-        private val newPeriods : ArrayList<PeriodOfService>
+        private val oldPeriods : List<PeriodOfService>,
+        private val newPeriods : List<PeriodOfService>
     ) : DiffUtil.Callback(){
         override fun getOldListSize(): Int {
             return oldPeriods.size
