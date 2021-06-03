@@ -40,7 +40,7 @@
         tools:layout="@layout/edit_period_fragment" >
         <argument
             android:name="period"
-            app:argType="com.dmabram15.lenghtofservice.model.PeriodOfService"
+            app:argType="com.dmabram15.lenghtofservice.model.Period"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

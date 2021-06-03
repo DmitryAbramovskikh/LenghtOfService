@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.model
+package com.dmabram15.lenghtofservice.model.utils.converters
 
 import com.dmabram15.lenghtofservice.App
 import com.dmabram15.lenghtofservice.R
@@ -12,7 +12,7 @@ class LongToDateConverter {
 
         @JvmStatic
         fun convert(date : Long) : String {
-            val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+            val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale("ru-RU"))
             return simpleDateFormat.format(Date(date))
         }
 

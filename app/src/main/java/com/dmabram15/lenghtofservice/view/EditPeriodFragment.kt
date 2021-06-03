@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.navArgs
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
-import com.dmabram15.lenghtofservice.model.LongToDateConverter
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
+import com.dmabram15.lenghtofservice.model.utils.enums.Multiples.*
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -48,10 +49,26 @@ class EditPeriodFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
         activity?.let { sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java) }
 
-        var period : PeriodOfService? = null
+        uiInit()
+        periodInit()
+        setObservers()
+        setListeners()
+    }
+
+    private fun uiInit(){
+        binding.apply {
+            zeroChip.text = "${USUAL.multiple}"
+            firstChip.text = "${REGIONAL.multiple}"
+            secondChip.text = "${FLIGHT.multiple}"
+            thirdChip.text = "${COMBAT.multiple}"
+        }
+    }
+
+    private fun periodInit() {
+        var period: Period? = null
         arguments?.let {
             val args = EditPeriodFragmentArgs.fromBundle(it)
-             period = args.period
+            period = args.period
         }
         openedId = when (period) {
             null -> 0
@@ -60,9 +77,6 @@ class EditPeriodFragment : Fragment() {
                 period!!.id
             }
         }
-
-        setObservers()
-        setListeners()
     }
 
     private fun setObservers() {
@@ -95,7 +109,7 @@ class EditPeriodFragment : Fragment() {
             if (openedId == 0) openedId = sharedViewModel.getNextId()
             viewModel.createPeriodOfService(openedId)?.let {
                 if (sharedViewModel
-                        .checkPeriodsCollision(it)
+                        .checkPeriodsCollision(it, getMatherEventListener())
                 ) {
                     sharedViewModel.setPeriod(it)
                     activity?.onBackPressed()
@@ -104,19 +118,20 @@ class EditPeriodFragment : Fragment() {
                 }
             } ?: snackBarShow(getString(R.string.not_all_fields_was_filled))
         }
+
         binding.multiplySelectorChipsGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
-                binding.x10multiplierChip.id -> {
-                    viewModel.setMultiple(1.0f)
+                binding.zeroChip.id -> {
+                    viewModel.setMultiple(USUAL.multiple)
                 }
-                binding.x15multiplierChip.id -> {
-                    viewModel.setMultiple(1.5f)
+                binding.firstChip.id -> {
+                    viewModel.setMultiple(REGIONAL.multiple)
                 }
-                binding.x20multiplierChip.id -> {
-                    viewModel.setMultiple(2.0f)
+                binding.secondChip.id -> {
+                    viewModel.setMultiple(FLIGHT.multiple)
                 }
-                binding.x30multiplierChip.id -> {
-                    viewModel.setMultiple(3.0f)
+                binding.thirdChip.id -> {
+                    viewModel.setMultiple(COMBAT.multiple)
                 }
             }
         }
@@ -143,10 +158,10 @@ class EditPeriodFragment : Fragment() {
     private fun renderMultiply(value: Float) {
         binding.multiplySelectorChipsGroup.check(
             when (value) {
-                1.0f -> R.id.x10multiplierChip
-                1.5f -> R.id.x15multiplierChip
-                2.0f -> R.id.x20multiplierChip
-                else -> R.id.x30multiplierChip
+                1.0f -> R.id.zeroChip
+                1.5f -> R.id.firstChip
+                2.0f -> R.id.secondChip
+                else -> R.id.thirdChip
             }
         )
     }
@@ -158,5 +173,29 @@ class EditPeriodFragment : Fragment() {
             .build()
         datePicker.addOnPositiveButtonClickListener(onClickListener)
         datePicker.show(childFragmentManager, "")
+    }
+
+    private fun getMatherEventListener() : OnMatcherEventListener {
+        //TODO убрать хардкод
+        return object : OnMatcherEventListener {
+            override fun hasBeginCross(crossedPeriod: Period, date: Long) {
+                val result = "${LongToDateConverter.convert(date)} лежит в пределах ${crossedPeriod.id} периода"
+                binding.beginPeriodDateTextView.text = result
+            }
+
+            override fun hasEndCross(crossedPeriod: Period, date: Long) {
+                val result = "${LongToDateConverter.convert(date)} лежит в пределах ${crossedPeriod.id} периода"
+                binding.endPeriodDateTextView.text = result
+            }
+
+            override fun hasIncludingCross(crossedPeriod: Period) {
+                val result = "${crossedPeriod.id} включен в выбранный период"
+                binding.endPeriodDateTextView.text = result
+            }
+
+            override fun success() {
+                snackBarShow("Период успешно сохранен!")
+            }
+        }
     }
 }

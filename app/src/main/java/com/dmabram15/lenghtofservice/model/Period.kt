@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PeriodOfService(
+data class Period(
     val id : Int,
     val beginPeriod : Long,
     val endPeriod : Long,
@@ -18,7 +18,7 @@ data class PeriodOfService(
             return false
         }
 
-        other as PeriodOfService
+        other as Period
 
         if (this.id != other.id) return false
         if (this.beginPeriod != other.beginPeriod) return false

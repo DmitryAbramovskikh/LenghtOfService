@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
 import com.dmabram15.lenghtofservice.viewModel.PeriodsOfViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
@@ -21,11 +19,6 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private lateinit var periodsAdapter: PeriodsOfServiceRVAdapter
     private lateinit var binding: PeriodsOfFragmentBinding
-    private val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
-
-    companion object {
-        fun newInstance() = PeriodsOfServiceFragment()
-    }
 
     private lateinit var viewModel: PeriodsOfViewModel
     private lateinit var sharedViewModel: SharedViewModel
@@ -59,15 +52,16 @@ class PeriodsOfServiceFragment : Fragment() {
         super.onResume()
     }
 
-    private fun startEditFragment(it: PeriodOfService?) {
+    private fun startEditFragment(it: Period?) {
         it?.let {
             val navController = findNavController()
+            val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
             action.period = it
             navController.navigate(action)
         }
     }
 
-    private fun render(periods: ArrayList<PeriodOfService>) {
+    private fun render(periods: ArrayList<Period>) {
         periodsAdapter.setPeriods(periods)
         showAlertIfNull(periods.size)
     }
@@ -81,6 +75,7 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
+            val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
             action.period = null
             findNavController().navigate(action)
         }

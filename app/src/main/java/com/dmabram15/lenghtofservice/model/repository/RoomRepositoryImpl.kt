@@ -1,43 +1,43 @@
 package com.dmabram15.lenghtofservice.model.repository
 
 import com.dmabram15.lenghtofservice.App
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.Period
 
 class RoomRepositoryImpl : RoomRepository {
 
     private val periodsDatabase = App.getInstance().getDb()
     private var periodsDAO = periodsDatabase.periodsDao()
 
-    override fun getAllPeriods(): ArrayList<PeriodOfService> {
+    override fun getAllPeriods(): ArrayList<Period> {
         return daoInModelConverter(periodsDAO.getAll())
     }
 
-    override fun savePeriod(periodOfService: PeriodOfService) {
-        periodsDAO.insertPeriod(modelInDaoConverter(periodOfService))
+    override fun savePeriod(period: Period) {
+        periodsDAO.insertPeriod(modelInDaoConverter(period))
     }
 
-    override fun deletePeriod(periodOfService: PeriodOfService) {
-        periodsDAO.deletePeriod(modelInDaoConverter(periodOfService))
+    override fun deletePeriod(period: Period) {
+        periodsDAO.deletePeriod(modelInDaoConverter(period))
     }
 
     override fun dropDatabase() {
         periodsDAO.dropDatabase()
     }
 
-    private fun modelInDaoConverter(periodOfService: PeriodOfService): PeriodEntity {
+    private fun modelInDaoConverter(period: Period): PeriodEntity {
         return PeriodEntity(
-            periodOfService.id,
-            periodOfService.beginPeriod,
-            periodOfService.endPeriod,
-            periodOfService.multiple
+            period.id,
+            period.beginPeriod,
+            period.endPeriod,
+            period.multiple
         )
     }
 
     private fun daoInModelConverter(periodEntities: List<PeriodEntity>)
-            : ArrayList<PeriodOfService> {
+            : ArrayList<Period> {
         return ArrayList(
             periodEntities.map {
-                PeriodOfService(
+                Period(
                     it.id,
                     it.beginPeriod,
                     it.endPeriod,

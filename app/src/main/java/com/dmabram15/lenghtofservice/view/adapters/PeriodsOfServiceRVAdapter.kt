@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
-import com.dmabram15.lenghtofservice.model.LongToDateConverter
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
 
 class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListListener) : RecyclerView.Adapter<PeriodsOfServiceRVAdapter.PeriodsOfServiceViewHolder>() {
 
-    private var periods = ArrayList<PeriodOfService>()
+    private var periods = ArrayList<Period>()
     private lateinit var binding : LengthServicePeriodItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodsOfServiceViewHolder {
@@ -45,8 +45,8 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
         return periods.size
     }
 
-    fun setPeriods(newPeriods : ArrayList<PeriodOfService>) {
-        val sortedNewPeriod = ArrayList<PeriodOfService>(0)
+    fun setPeriods(newPeriods : ArrayList<Period>) {
+        val sortedNewPeriod = ArrayList<Period>(0)
         sortedNewPeriod.addAll(newPeriods.sortedBy { it.beginPeriod })
         val diffResult = DiffUtil.calculateDiff(PeriodsDiffCallback(periods, sortedNewPeriod))
         periods.let {
@@ -60,8 +60,8 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
         : RecyclerView.ViewHolder(binding.root)
 
     inner class PeriodsDiffCallback(
-        private val oldPeriods : List<PeriodOfService>,
-        private val newPeriods : List<PeriodOfService>
+        private val oldPeriods : List<Period>,
+        private val newPeriods : List<Period>
     ) : DiffUtil.Callback(){
         override fun getOldListSize(): Int {
             return oldPeriods.size

@@ -2,7 +2,7 @@ package com.dmabram15.lenghtofservice.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.Period
 
 class EditPeriodViewModel : ViewModel() {
 
@@ -42,12 +42,12 @@ class EditPeriodViewModel : ViewModel() {
         multiple.value = value
     }
 
-    fun createPeriodOfService(id : Int): PeriodOfService? {
+    fun createPeriodOfService(id : Int): Period? {
         return if (beginDate.value != null
             && endDate.value != null
             && multiple.value != null
         ) {
-            PeriodOfService(
+            Period(
                 id,
                 beginDate.value!!,
                 endDate.value!!,
@@ -56,7 +56,7 @@ class EditPeriodViewModel : ViewModel() {
         } else null
     }
 
-    fun setPeriod(period: PeriodOfService) {
+    fun setPeriod(period: Period) {
         beginDate.value =  period.beginPeriod
         endDate.value = period.endPeriod
         multiple.value = period.multiple

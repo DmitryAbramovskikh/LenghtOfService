@@ -3,9 +3,11 @@ package com.dmabram15.lenghtofservice.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
 import com.dmabram15.lenghtofservice.model.repository.RoomRepository
 import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl
+import com.dmabram15.lenghtofservice.model.utils.matchers.PeriodMatcher
 import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -13,9 +15,9 @@ import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel(), OnChangeListListener {
 
-    private val periodsLiveData = MutableLiveData<ArrayList<PeriodOfService>>()
+    private val periodsLiveData = MutableLiveData<ArrayList<Period>>()
     private var repository: RoomRepository = RoomRepositoryImpl()
-    private var editableItem = MutableLiveData<PeriodOfService?>()
+    private var editableItem = MutableLiveData<Period?>()
 
     private var idKey = 0
 
@@ -25,9 +27,9 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
 
     fun observableItem() = editableItem
 
-    fun getPeriods(): MutableLiveData<ArrayList<PeriodOfService>> = periodsLiveData
+    fun getPeriods(): MutableLiveData<ArrayList<Period>> = periodsLiveData
 
-    fun setPeriod(period: PeriodOfService) {
+    fun setPeriod(period: Period) {
         val index = periodsLiveData.value?.indexOfFirst { period.id == it.id }
         if (index != -1 && index != null) {
             periodsLiveData.value?.removeAt(index)
@@ -35,9 +37,9 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
         periodsLiveData.value?.add(period)
     }
 
-    private fun savePeriod(periodOfService: PeriodOfService) {
+    private fun savePeriod(period: Period) {
         GlobalScope.launch(Dispatchers.IO) {
-            repository.savePeriod(periodOfService)
+            repository.savePeriod(period)
         }
     }
 
@@ -65,23 +67,13 @@ class SharedViewModel : ViewModel(), OnChangeListListener {
         }
     }
 
-    fun checkPeriodsCollision(periodOfService: PeriodOfService): Boolean {
-        periodsLiveData.value?.let { periods ->
-            for (periodItem: PeriodOfService in periods) {
-                if (periodItem.id == periodOfService.id) return true
-                if (periodOfService.beginPeriod in periodItem.beginPeriod..periodItem.endPeriod)
-                    return false
-                if (periodOfService.endPeriod in periodItem.beginPeriod..periodItem.endPeriod)
-                    return false
-                if (periodItem.beginPeriod in periodOfService.beginPeriod..periodOfService.endPeriod)
-                    return false
-            }
-        }
-        return true
+    fun checkPeriodsCollision(period: Period, listener: OnMatcherEventListener): Boolean {
+        val matcher = PeriodMatcher(listener)
+        return matcher.matchPeriod(period, periodsLiveData.value)
     }
 
     override fun delete(id: Int) {
-            periodsLiveData.value = periodsLiveData.value?.filter { it.id != id } as ArrayList<PeriodOfService>
+            periodsLiveData.value = periodsLiveData.value?.filter { it.id != id } as ArrayList<Period>
     }
 
     override fun edit(id: Int) {

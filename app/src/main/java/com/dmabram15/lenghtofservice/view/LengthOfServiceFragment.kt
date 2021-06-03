@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
-import com.dmabram15.lenghtofservice.model.LongToDateConverter
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.viewModel.LengthOfServiceViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import java.util.ArrayList
@@ -57,7 +57,7 @@ class LengthOfServiceFragment : Fragment() {
         }
     }
 
-    private fun renderData(periods: ArrayList<PeriodOfService>?) {
+    private fun renderData(periods: ArrayList<Period>?) {
         periods?.let {
             binding.preferentialLengthOfServiceTextView.text = LongToDateConverter
                 .convertDifferent(calculateAllPeriodsLength(it, CALC_WITH_MULTIPLIER))
@@ -68,7 +68,7 @@ class LengthOfServiceFragment : Fragment() {
     }
 
     private fun calculateAllPeriodsLength(
-        periods: ArrayList<PeriodOfService>,
+        periods: ArrayList<Period>,
         calculateMethod: Int
     ): Long {
         var result: Long = 0

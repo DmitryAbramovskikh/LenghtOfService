@@ -1,10 +1,10 @@
 package com.dmabram15.lenghtofservice.model.repository
 
-import com.dmabram15.lenghtofservice.model.PeriodOfService
+import com.dmabram15.lenghtofservice.model.Period
 
 interface RoomRepository {
-    fun getAllPeriods() : ArrayList<PeriodOfService>
-    fun savePeriod(periodOfService: PeriodOfService)
-    fun deletePeriod(periodOfService: PeriodOfService)
+    fun getAllPeriods() : ArrayList<Period>
+    fun savePeriod(period: Period)
+    fun deletePeriod(period: Period)
     fun dropDatabase()
 }
