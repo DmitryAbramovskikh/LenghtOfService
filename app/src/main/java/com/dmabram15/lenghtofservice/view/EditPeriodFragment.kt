@@ -21,15 +21,6 @@ class EditPeriodFragment : Fragment() {
     companion object {
 
         fun newInstance() = EditPeriodFragment()
-
-        /*fun newInstance(periodOfService: PeriodOfService?): EditPeriodFragment =
-            if (periodOfService != null) {
-                val bundle = Bundle()
-                bundle.putParcelable(PERIOD_KEY, periodOfService)
-                val fragment = EditPeriodFragment()
-                fragment.arguments = bundle
-                fragment
-            } else EditPeriodFragment()*/
     }
 
     private lateinit var viewModel: EditPeriodViewModel
