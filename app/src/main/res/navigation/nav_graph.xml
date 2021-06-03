@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_lengthOfServiceFragment_to_periodsOfServiceFragment"
             app:destination="@id/periodsOfServiceFragment"
+            app:enterAnim="@anim/appear_from_rignt"
+            app:exitAnim="@anim/disappear_to_left"
+            app:popEnterAnim="@anim/appear_from_left"
+            app:popExitAnim="@anim/disappear_to_rignt"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
@@ -23,6 +27,10 @@
         <action
             android:id="@+id/action_periodsOfServiceFragment_to_editPeriodFragment"
             app:destination="@id/editPeriodFragment"
+            app:enterAnim="@anim/appear_from_rignt"
+            app:exitAnim="@anim/disappear_to_left"
+            app:popEnterAnim="@anim/appear_from_left"
+            app:popExitAnim="@anim/disappear_to_rignt"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment

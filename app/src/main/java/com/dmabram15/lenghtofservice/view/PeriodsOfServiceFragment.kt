@@ -21,6 +21,7 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private lateinit var periodsAdapter: PeriodsOfServiceRVAdapter
     private lateinit var binding: PeriodsOfFragmentBinding
+    private val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
 
     companion object {
         fun newInstance() = PeriodsOfServiceFragment()
@@ -61,7 +62,6 @@ class PeriodsOfServiceFragment : Fragment() {
     private fun startEditFragment(it: PeriodOfService?) {
         it?.let {
             val navController = findNavController()
-            val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
             action.period = it
             navController.navigate(action)
         }
@@ -81,16 +81,8 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.setCustomAnimations(
-                    R.anim.appear_from_rignt,
-                    R.anim.disappear_to_left,
-                    R.anim.appear_from_left,
-                    R.anim.disappear_to_rignt
-                )
-                ?.replace(R.id.container, EditPeriodFragment.newInstance())
-                ?.addToBackStack(null)
-                ?.commitAllowingStateLoss()
+            action.period = null
+            findNavController().navigate(action)
         }
     }
 
