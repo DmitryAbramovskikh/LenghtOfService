@@ -1,28 +1,24 @@
 package com.dmabram15.lenghtofservice.view
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
-import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
+import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
 import com.dmabram15.lenghtofservice.model.utils.enums.Multiples.*
+import com.dmabram15.lenghtofservice.model.utils.matchers.RegexMaskTextWatcher
+import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 
 class EditPeriodFragment : Fragment() {
-
-    companion object {
-
-        fun newInstance() = EditPeriodFragment()
-    }
 
     private lateinit var viewModel: EditPeriodViewModel
     private lateinit var sharedViewModel: SharedViewModel
@@ -55,7 +51,7 @@ class EditPeriodFragment : Fragment() {
         setListeners()
     }
 
-    private fun uiInit(){
+    private fun uiInit() {
         binding.apply {
             zeroChip.text = "${USUAL.multiple}"
             firstChip.text = "${REGIONAL.multiple}"
@@ -135,6 +131,21 @@ class EditPeriodFragment : Fragment() {
                 }
             }
         }
+        binding.beginDateInputText.apply {
+            addTextChangedListener(
+                RegexMaskTextWatcher(
+                    this
+                )
+            )
+        }
+
+        binding.endDateInputText.apply {
+            addTextChangedListener(
+                RegexMaskTextWatcher(
+                    this
+                )
+            )
+        }
     }
 
     private fun snackBarShow(text: String) {
@@ -146,13 +157,11 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun renderBeginDate(value: Long) {
-        binding.beginPeriodDateTextView.text = LongToDateConverter
-            .convert(value)
+        binding.beginDateInputText.setText(LongToDateConverter.convert(value))
     }
 
     private fun renderEndDate(value: Long) {
-        binding.endPeriodDateTextView.text = LongToDateConverter
-            .convert(value)
+        binding.endDateInputText.setText(LongToDateConverter.convert(value))
     }
 
     private fun renderMultiply(value: Float) {
@@ -175,26 +184,26 @@ class EditPeriodFragment : Fragment() {
         datePicker.show(childFragmentManager, "")
     }
 
-    private fun getMatherEventListener() : OnMatcherEventListener {
-        //TODO убрать хардкод
+    private fun getMatherEventListener(): OnMatcherEventListener {
+
         return object : OnMatcherEventListener {
             override fun hasBeginCross(crossedPeriod: Period, date: Long) {
-                val result = "${LongToDateConverter.convert(date)} лежит в пределах ${crossedPeriod.id} периода"
-                binding.beginPeriodDateTextView.text = result
+                binding.beginDateInputLayout.isErrorEnabled = true
+                binding.beginDateInputLayout.error = getString(R.string.crossing_period_error)
             }
 
             override fun hasEndCross(crossedPeriod: Period, date: Long) {
-                val result = "${LongToDateConverter.convert(date)} лежит в пределах ${crossedPeriod.id} периода"
-                binding.endPeriodDateTextView.text = result
+                binding.beginDateInputLayout.isErrorEnabled = true
+                binding.beginDateInputLayout.error = getString(R.string.crossing_period_error)
             }
 
             override fun hasIncludingCross(crossedPeriod: Period) {
-                val result = "${crossedPeriod.id} включен в выбранный период"
-                binding.endPeriodDateTextView.text = result
+                binding.beginDateInputLayout.isErrorEnabled = true
+                binding.beginDateInputLayout.error = getString(R.string.included_period_error)
             }
 
             override fun success() {
-                snackBarShow("Период успешно сохранен!")
+                snackBarShow(getString(R.string.saved_succesful))
             }
         }
     }

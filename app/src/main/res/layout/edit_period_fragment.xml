@@ -17,165 +17,135 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/medium_spacing">
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextAppearance.MaterialComponents.Body1.Label"
-            android:id="@+id/beginDateLabelTextView"
-            android:layout_marginTop="@dimen/medium_spacing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/begin_date"
-            android:textSize="@dimen/usual_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/beginDateInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/applyButton" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/beginPeriodDateTextView"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
             android:layout_marginEnd="@dimen/medium_spacing"
-            android:background="@drawable/backdrop"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:hint="@string/get_date_from_calendar"
-            android:textSize="@dimen/usual_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/pickStartDate"
             app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/pickStartDate" />
+            app:layout_constraintTop_toTopOf="@+id/pickStartDate">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/beginDateInputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:hint="@string/begin_date" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/average_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:hint="@string/end_date"
+            android:tint="@string/begin_date"
+            app:layout_constraintBottom_toBottomOf="@+id/pickEndDate"
+            app:layout_constraintEnd_toStartOf="@+id/pickEndDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/beginDateInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/endDateInputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/pickStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_spacing"
-            android:backgroundTint="@color/widget_background_dark_color"
-            android:textColor="@color/black"
-            android:src="@drawable/ic_calendar"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:background="@color/transparent"
-            android:padding="@dimen/small_spacing"
-            app:iconTint="@color/black"
+            android:backgroundTint="@color/widget_background_dark_color"
             android:contentDescription="@string/calendar_picker"
+            android:padding="@dimen/small_spacing"
+            android:src="@drawable/ic_calendar"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/beginDateLabelTextView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/endDateLabelTextView"
-            style="@style/TextAppearance.MaterialComponents.Body1.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/average_spacing"
-            android:text="@string/end_date"
-            android:textSize="@dimen/usual_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pickStartDate" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/endPeriodDateTextView"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/medium_spacing"
-            android:background="@drawable/backdrop"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:hint="@string/get_date_from_calendar"
-            android:textSize="@dimen/usual_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/pickEndDate"
-            app:layout_constraintEnd_toStartOf="@+id/pickEndDate"
-            app:layout_constraintStart_toStartOf="@id/beginPeriodDateTextView"
-            app:layout_constraintTop_toTopOf="@+id/pickEndDate" />
 
         <ImageButton
             android:id="@+id/pickEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_spacing"
-            android:backgroundTint="@color/widget_background_dark_color"
-            android:textColor="@color/black"
-            android:src="@drawable/ic_calendar"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:background="@color/transparent"
-            app:iconTint="@color/black"
+            android:backgroundTint="@color/widget_background_dark_color"
             android:contentDescription="@string/calendar_picker"
             android:padding="@dimen/small_spacing"
+            android:src="@drawable/ic_calendar"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/endDateLabelTextView" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/multipleCoefficientLabelTextView"
-            style="@style/TextAppearance.MaterialComponents.Body1.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/average_spacing"
-            android:text="@string/multiple"
-            android:textSize="@dimen/usual_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pickEndDate" />
+            app:layout_constraintTop_toBottomOf="@+id/beginDateInputLayout" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/multiplySelectorChipsGroup"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:chipSpacingHorizontal="@dimen/average_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/multipleCoefficientLabelTextView"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
             app:singleSelection="true">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/zeroChip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/usual_text_size"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/firstChip"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/zeroChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/usual_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/firstChip"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/firstChip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/usual_text_size"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/zeroChip"
-                    app:layout_constraintEnd_toStartOf="@+id/secondChip"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/firstChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/usual_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/secondChip"
+                app:layout_constraintStart_toEndOf="@id/zeroChip"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/secondChip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/usual_text_size"
-                    app:layout_constraintStart_toEndOf="@id/firstChip"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/thirdChip"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/secondChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/usual_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/thirdChip"
+                app:layout_constraintStart_toEndOf="@id/firstChip"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/thirdChip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/usual_text_size"
-                    app:layout_constraintStart_toEndOf="@id/secondChip"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/thirdChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/usual_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/secondChip"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -183,7 +153,7 @@
             android:id="@+id/applyButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/great_spacing"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:backgroundTint="@color/widget_background_dark_color"
             android:text="@string/apply"
             android:textColor="@color/black"

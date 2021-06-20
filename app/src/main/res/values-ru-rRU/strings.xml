@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Выслуга</string>
     <string name="length_of_service_title">ТЕКУЩАЯ ВЫСЛУГА</string>
-    <string name="begin_date">Начало периода</string>
-    <string name="end_date">Конец периода</string>
+    <string name="begin_date">начальная дата</string>
+    <string name="end_date">конечная дата</string>
     <string name="multiple">Множитель</string>
     <string name="attention">Внимание!</string>
     <string name="list_of_periods_is_null_message">Вы не добавили ни одного периода службы.</string>
@@ -21,6 +21,9 @@
     <string name="preferential">льготная</string>
     <string name="calendar">календарная</string>
     <string name="nothing_added">Ничего не добавлено</string>
-    <string name="set_begin_date">Установи начальную дату</string>
-    <string name="set_end_date">Установи конечную дату</string>
+    <string name="set_begin_date">установи начальную дату</string>
+    <string name="set_end_date">установи конечную дату</string>
+    <string name="crossing_period_error">пересекается с другим периодом</string>
+    <string name="included_period_error">содержит другой период</string>
+    <string name="saved_succesful">Сохранение успешно</string>
 </resources>
