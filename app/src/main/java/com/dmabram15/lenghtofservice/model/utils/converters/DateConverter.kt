@@ -6,7 +6,7 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LongToDateConverter {
+class DateConverter {
     companion object {
         var calendar = GregorianCalendar()
 
@@ -14,6 +14,12 @@ class LongToDateConverter {
         fun convert(date : Long) : String {
             val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale("ru-RU"))
             return simpleDateFormat.format(Date(date))
+        }
+
+        @JvmStatic
+        fun convertToLong(date : CharSequence) : Long {
+            val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale("ru-RU"))
+            return simpleDateFormat.parse(date.toString()).time
         }
 
         @JvmStatic

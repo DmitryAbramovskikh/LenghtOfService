@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
-import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
 
@@ -22,11 +22,11 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
     override fun onBindViewHolder(holder: PeriodsOfServiceViewHolder, position: Int) {
         holder.id = periods[position].id
         holder.binding.apply {
-            beginPeriodDateTextView.text = LongToDateConverter
+            beginPeriodDateTextView.text = DateConverter
                 .convert(periods[position].beginPeriod)
-            endPeriodDateTextView.text = LongToDateConverter
+            endPeriodDateTextView.text = DateConverter
                 .convert(periods[position].endPeriod)
-            lengthOfServiceItemTextView.text = LongToDateConverter.convertDifferent(
+            lengthOfServiceItemTextView.text = DateConverter.convertDifferent(
                 ((periods[position].endPeriod
                         - periods[position].beginPeriod)
                         * periods[position].multiple).toLong()

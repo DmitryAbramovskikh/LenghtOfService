@@ -16,4 +16,5 @@
 
     <!-- Drawable dimens -->
     <dimen name="border_width">1dp</dimen>
+    <dimen name="wide_spacing">36dp</dimen>
 </resources>

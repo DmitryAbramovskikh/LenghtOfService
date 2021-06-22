@@ -10,7 +10,7 @@ import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
-import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.utils.enums.Multiples.*
 import com.dmabram15.lenghtofservice.model.utils.matchers.RegexMaskTextWatcher
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
@@ -134,7 +134,8 @@ class EditPeriodFragment : Fragment() {
         binding.beginDateInputText.apply {
             addTextChangedListener(
                 RegexMaskTextWatcher(
-                    this
+                    this,
+                    binding.beginDateInputLayout
                 )
             )
         }
@@ -142,7 +143,8 @@ class EditPeriodFragment : Fragment() {
         binding.endDateInputText.apply {
             addTextChangedListener(
                 RegexMaskTextWatcher(
-                    this
+                    this,
+                    binding.endDateInputLayout
                 )
             )
         }
@@ -157,11 +159,11 @@ class EditPeriodFragment : Fragment() {
     }
 
     private fun renderBeginDate(value: Long) {
-        binding.beginDateInputText.setText(LongToDateConverter.convert(value))
+        binding.beginDateInputText.setText(DateConverter.convert(value))
     }
 
     private fun renderEndDate(value: Long) {
-        binding.endDateInputText.setText(LongToDateConverter.convert(value))
+        binding.endDateInputText.setText(DateConverter.convert(value))
     }
 
     private fun renderMultiply(value: Float) {

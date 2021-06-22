@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
-import com.dmabram15.lenghtofservice.model.utils.converters.LongToDateConverter
+import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.viewModel.LengthOfServiceViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
@@ -59,10 +59,10 @@ class LengthOfServiceFragment : Fragment() {
 
     private fun renderData(periods: ArrayList<Period>?) {
         periods?.let {
-            binding.preferentialLengthOfServiceTextView.text = LongToDateConverter
+            binding.preferentialLengthOfServiceTextView.text = DateConverter
                 .convertDifferent(calculateAllPeriodsLength(it, CALC_WITH_MULTIPLIER))
 
-            binding.calendarLengthOfServiceTextView.text = LongToDateConverter
+            binding.calendarLengthOfServiceTextView.text = DateConverter
                 .convertDifferent(calculateAllPeriodsLength(it, CALC_WITHOUT_MULTIPLIER))
         }
     }

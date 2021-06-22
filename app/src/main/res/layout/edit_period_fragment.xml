@@ -23,27 +23,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/medium_spacing"
-            app:layout_constraintBottom_toBottomOf="@+id/pickStartDate"
+            android:layout_marginTop="@dimen/medium_spacing"
             app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/pickStartDate">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/beginDateInputText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:hint="@string/begin_date" />
+                android:hint="@string/begin_date"
+                android:inputType="date" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
+            android:id="@+id/endDateInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/average_spacing"
             android:layout_marginEnd="@dimen/medium_spacing"
+            android:layout_marginTop="@dimen/medium_spacing"
             android:hint="@string/end_date"
             android:tint="@string/begin_date"
             app:layout_constraintBottom_toBottomOf="@+id/pickEndDate"
@@ -55,7 +55,7 @@
                 android:id="@+id/endDateInputText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"/>
+                android:inputType="date" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +63,6 @@
             android:id="@+id/pickStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_spacing"
             android:background="@color/transparent"
             android:backgroundTint="@color/widget_background_dark_color"
             android:contentDescription="@string/calendar_picker"
@@ -72,14 +71,14 @@
             android:textColor="@color/black"
             app:iconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/beginDateInputLayout"
+            app:layout_constraintBottom_toBottomOf="@id/beginDateInputLayout"/>
 
 
         <ImageButton
             android:id="@+id/pickEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_spacing"
             android:background="@color/transparent"
             android:backgroundTint="@color/widget_background_dark_color"
             android:contentDescription="@string/calendar_picker"
@@ -88,7 +87,9 @@
             android:textColor="@color/black"
             app:iconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/beginDateInputLayout" />
+            app:layout_constraintTop_toTopOf="@id/endDateInputLayout"
+            app:layout_constraintBottom_toBottomOf="@id/endDateInputLayout"
+            tools:layout_editor_absoluteY="130dp" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/multiplySelectorChipsGroup"
@@ -99,7 +100,7 @@
             app:chipSpacingHorizontal="@dimen/average_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/endDateInputLayout"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
