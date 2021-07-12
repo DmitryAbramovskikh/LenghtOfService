@@ -21,6 +21,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setGraphics() {
-        window?.setBackgroundDrawableResource(R.drawable.ic_applicationbackground_new)
+        window?.setBackgroundDrawableResource(R.drawable.ic_applicationbackground)
     }
 }

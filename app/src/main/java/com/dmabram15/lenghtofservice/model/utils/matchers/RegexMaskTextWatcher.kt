@@ -36,6 +36,5 @@ class RegexMaskTextWatcher(private val listener: OnInputTextStateChangeListener)
         s: CharSequence?, start: Int,
         before: Int, count: Int
     ) {
-
     }
 }
