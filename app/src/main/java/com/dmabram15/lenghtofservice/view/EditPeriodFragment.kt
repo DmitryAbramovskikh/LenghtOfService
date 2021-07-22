@@ -182,6 +182,7 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
     private fun getMatherEventListener(): OnMatcherEventListener {
 
+        //TODO перенессти все проверки во viewModel избавиться от зависимости от Period
         return object : OnMatcherEventListener {
             override fun hasBeginCross(crossedPeriod: Period, date: Long) {
                 binding.beginDateInputLayout.isErrorEnabled = true
