@@ -3,12 +3,12 @@ package com.dmabram15.lenghtofservice.viewModel.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
+import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
+import com.dmabram15.lenghtofservice.viewModel.repository.Repository
 import com.dmabram15.lenghtofservice.data.repository.RoomRepository
-import com.dmabram15.lenghtofservice.data.repository.RoomRepositoryImpl
 import com.dmabram15.lenghtofservice.model.utils.matchers.PeriodMatcher
-import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
+import com.dmabram15.lenghtofservice.viewModel.listeners.OnChangeListListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class SharedViewModel : ViewModel(), OnChangeListListener {
 
     private val periodsLiveData = MutableLiveData<ArrayList<Period>>()
-    private var repository: RoomRepository = RoomRepositoryImpl()
+    private var repository: Repository = RoomRepository()
     private var editableItem = MutableLiveData<Period?>()
 
     private var idKey = 0

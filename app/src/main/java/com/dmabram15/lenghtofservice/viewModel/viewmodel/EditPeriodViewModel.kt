@@ -2,7 +2,7 @@ package com.dmabram15.lenghtofservice.viewModel.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
+import com.dmabram15.lenghtofservice.model.Period
 
 class EditPeriodViewModel : ViewModel() {
 

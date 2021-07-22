@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.model.utils.converters
+package com.dmabram15.lenghtofservice.viewModel.converters
 
 import com.dmabram15.lenghtofservice.App
 import com.dmabram15.lenghtofservice.R

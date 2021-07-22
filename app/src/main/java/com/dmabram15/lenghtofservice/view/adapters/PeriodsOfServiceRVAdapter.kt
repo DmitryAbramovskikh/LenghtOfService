@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
-import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
-import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
-import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
+import com.dmabram15.lenghtofservice.viewModel.converters.DateConverter
+import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.listeners.OnChangeListListener
 
 class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListListener) : RecyclerView.Adapter<PeriodsOfServiceRVAdapter.PeriodsOfServiceViewHolder>() {
 
