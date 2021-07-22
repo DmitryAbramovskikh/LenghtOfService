@@ -1,15 +1,11 @@
 package com.dmabram15.lenghtofservice.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class Period(
     val id : Int,
     val beginPeriod : Long,
     val endPeriod : Long,
     val multiple : Float
-) : Parcelable {
+) {
 
     //Для использования в RecyclerView DiffUtils
     override fun equals(other: Any?): Boolean {
