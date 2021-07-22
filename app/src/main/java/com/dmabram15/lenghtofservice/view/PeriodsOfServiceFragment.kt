@@ -56,7 +56,7 @@ class PeriodsOfServiceFragment : Fragment() {
         it?.let {
             val navController = findNavController()
             val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
-            action.period = it
+            //action.period = it TODO Разобраться с информацией передаваемой в дочерние фрагменты
             navController.navigate(action)
         }
     }
@@ -76,7 +76,7 @@ class PeriodsOfServiceFragment : Fragment() {
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
             val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
-            action.period = null
+            //action.period = null TODO Разобраться с информацией передаваемой в дочерние фрагменты
             findNavController().navigate(action)
         }
     }

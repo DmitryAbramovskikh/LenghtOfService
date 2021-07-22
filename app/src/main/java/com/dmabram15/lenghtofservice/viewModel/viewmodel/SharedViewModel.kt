@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
-import com.dmabram15.lenghtofservice.model.repository.RoomRepository
-import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl
+import com.dmabram15.lenghtofservice.data.repository.RoomRepository
+import com.dmabram15.lenghtofservice.data.repository.RoomRepositoryImpl
 import com.dmabram15.lenghtofservice.model.utils.matchers.PeriodMatcher
 import com.dmabram15.lenghtofservice.view.interfaces.OnChangeListListener
 import kotlinx.coroutines.Dispatchers

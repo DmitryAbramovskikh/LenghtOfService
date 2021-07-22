@@ -62,18 +62,13 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
     }
 
     private fun periodInit() {
-        var period: Period? = null
+        var periodId = 0
         arguments?.let {
             val args = EditPeriodFragmentArgs.fromBundle(it)
-            period = args.period
+            periodId = args.periodId
         }
-        openedId = when (period) {
-            null -> 0
-            else -> {
-                viewModel.setPeriod(period!!)
-                period!!.id
-            }
-        }
+        openedId = periodId
+            /*viewModel.setPeriod(period) TODO Найти возможность получения периода*/
     }
 
     private fun setObservers() {

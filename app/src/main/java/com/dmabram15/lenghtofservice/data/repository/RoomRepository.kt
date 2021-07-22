@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.model.repository
+package com.dmabram15.lenghtofservice.data.repository
 
 import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 

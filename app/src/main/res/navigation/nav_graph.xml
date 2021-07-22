@@ -39,9 +39,8 @@
         android:label="edit_period_fragment"
         tools:layout="@layout/edit_period_fragment" >
         <argument
-            android:name="period"
-            app:argType="com.dmabram15.lenghtofservice.model.Period"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="periodId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

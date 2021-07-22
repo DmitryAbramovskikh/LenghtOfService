@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.model.repository
+package com.dmabram15.lenghtofservice.data.repository
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
