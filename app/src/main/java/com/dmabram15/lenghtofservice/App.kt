@@ -1,7 +1,6 @@
 package com.dmabram15.lenghtofservice
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.dmabram15.lenghtofservice.model.repository.PeriodsDatabase
 

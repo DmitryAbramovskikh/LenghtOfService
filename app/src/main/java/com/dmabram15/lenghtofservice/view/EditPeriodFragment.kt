@@ -12,13 +12,14 @@ import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
 import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.utils.enums.Multiples.*
+import com.dmabram15.lenghtofservice.model.utils.matchers.OnInputTextStateChangeListener
 import com.dmabram15.lenghtofservice.model.utils.matchers.RegexMaskTextWatcher
 import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
 import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 
-class EditPeriodFragment : Fragment() {
+class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
     private lateinit var viewModel: EditPeriodViewModel
     private lateinit var sharedViewModel: SharedViewModel
@@ -134,8 +135,7 @@ class EditPeriodFragment : Fragment() {
         binding.beginDateInputText.apply {
             addTextChangedListener(
                 RegexMaskTextWatcher(
-                    this,
-                    binding.beginDateInputLayout
+                    this@EditPeriodFragment
                 )
             )
         }
@@ -143,8 +143,7 @@ class EditPeriodFragment : Fragment() {
         binding.endDateInputText.apply {
             addTextChangedListener(
                 RegexMaskTextWatcher(
-                    this,
-                    binding.endDateInputLayout
+                    this@EditPeriodFragment
                 )
             )
         }
@@ -208,5 +207,18 @@ class EditPeriodFragment : Fragment() {
                 snackBarShow(getString(R.string.saved_succesful))
             }
         }
+    }
+
+    //TODO удалить все к чертям отсюда
+    override fun onInputError(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onInputSuccess() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onInputBegin() {
+        TODO("Not yet implemented")
     }
 }
