@@ -1,7 +1,7 @@
 package com.dmabram15.lenghtofservice.model.repository
 
 import com.dmabram15.lenghtofservice.App
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 
 class RoomRepositoryImpl : RoomRepository {
 

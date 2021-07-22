@@ -1,6 +1,6 @@
 package com.dmabram15.lenghtofservice.model.listeners
 
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 
 //Итерфейс матчера пересечений диапазонов
 // (сохраняемого и уже имеющегося в базе)

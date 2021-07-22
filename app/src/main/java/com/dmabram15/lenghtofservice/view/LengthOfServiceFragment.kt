@@ -10,9 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
 import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
-import com.dmabram15.lenghtofservice.model.Period
-import com.dmabram15.lenghtofservice.viewModel.LengthOfServiceViewModel
-import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.LengthOfServiceViewModel
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
 import java.util.ArrayList
 
 class LengthOfServiceFragment : Fragment() {

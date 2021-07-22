@@ -1,9 +1,9 @@
-package com.dmabram15.lenghtofservice.viewModel
+package com.dmabram15.lenghtofservice.viewModel.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
 import com.dmabram15.lenghtofservice.model.repository.RoomRepository
 import com.dmabram15.lenghtofservice.model.repository.RoomRepositoryImpl

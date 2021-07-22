@@ -1,6 +1,6 @@
 package com.dmabram15.lenghtofservice.model.utils.matchers
 
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
 
 class PeriodMatcher(

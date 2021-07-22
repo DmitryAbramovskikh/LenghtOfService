@@ -1,6 +1,6 @@
 package com.dmabram15.lenghtofservice.model.repository
 
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 
 interface RoomRepository {
     fun getAllPeriods() : ArrayList<Period>

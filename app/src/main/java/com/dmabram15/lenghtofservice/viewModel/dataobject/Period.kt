@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.model
+package com.dmabram15.lenghtofservice.viewModel.dataobject
 
 data class Period(
     val id : Int,

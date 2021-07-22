@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dmabram15.lenghtofservice.R
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
 import com.dmabram15.lenghtofservice.model.utils.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.utils.enums.Multiples.*
 import com.dmabram15.lenghtofservice.model.utils.matchers.OnInputTextStateChangeListener
 import com.dmabram15.lenghtofservice.model.utils.matchers.RegexMaskTextWatcher
-import com.dmabram15.lenghtofservice.viewModel.EditPeriodViewModel
-import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.EditPeriodViewModel
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 

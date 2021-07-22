@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
-import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.viewModel.dataobject.Period
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
-import com.dmabram15.lenghtofservice.viewModel.PeriodsOfViewModel
-import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.PeriodsOfViewModel
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
 import java.util.*
 
 class PeriodsOfServiceFragment : Fragment() {

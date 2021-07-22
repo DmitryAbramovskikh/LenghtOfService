@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.viewModel.SharedViewModel
+import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
 
