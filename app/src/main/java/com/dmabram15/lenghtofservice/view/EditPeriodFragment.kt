@@ -182,7 +182,7 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
     private fun getMatherEventListener(): OnMatcherEventListener {
 
-        //TODO перенессти все проверки во viewModel избавиться от зависимости от Period
+        //TODO перенести все проверки во viewModel избавиться от зависимости от Period
         return object : OnMatcherEventListener {
             override fun hasBeginCross(crossedPeriod: Period, date: Long) {
                 binding.beginDateInputLayout.isErrorEnabled = true
@@ -190,13 +190,15 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
             }
 
             override fun hasEndCross(crossedPeriod: Period, date: Long) {
-                binding.beginDateInputLayout.isErrorEnabled = true
-                binding.beginDateInputLayout.error = getString(R.string.crossing_period_error)
+                binding.endDateInputLayout.isErrorEnabled = true
+                binding.endDateInputLayout.error = getString(R.string.crossing_period_error)
             }
 
             override fun hasIncludingCross(crossedPeriod: Period) {
                 binding.beginDateInputLayout.isErrorEnabled = true
                 binding.beginDateInputLayout.error = getString(R.string.included_period_error)
+                binding.endDateInputLayout.isErrorEnabled = true
+                binding.endDateInputLayout.error = getString(R.string.included_period_error)
             }
 
             override fun success() {
