@@ -8,20 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dmabram15.lenghtofservice.data.repository.RoomRepository
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
+import com.dmabram15.lenghtofservice.viewModel.listeners.OnChangeListListener
 import com.dmabram15.lenghtofservice.viewModel.viewmodel.PeriodsOfViewModel
-import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
-import java.util.*
 
-class PeriodsOfServiceFragment : Fragment() {
+class PeriodsOfServiceFragment : Fragment(), OnChangeListListener {
 
     private lateinit var periodsAdapter: PeriodsOfServiceRVAdapter
     private lateinit var binding: PeriodsOfFragmentBinding
 
     private lateinit var viewModel: PeriodsOfViewModel
-    private lateinit var sharedViewModel: SharedViewModel
+
+    //using dagger
+    private val repository = RoomRepository.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,31 +41,22 @@ class PeriodsOfServiceFragment : Fragment() {
     }
 
     private fun viewModelsInit() {
-        activity?.let {
-            sharedViewModel = ViewModelProvider(it).get(SharedViewModel::class.java)
-        }
-        sharedViewModel.loadData()
         viewModel = ViewModelProvider(this).get(PeriodsOfViewModel::class.java)
+        viewModel.periodsData.observe(viewLifecycleOwner, {render(it)})
     }
 
     override fun onResume() {
-        sharedViewModel.getPeriods().observe(viewLifecycleOwner, { render(it) })
-        sharedViewModel.observableItem().observe(viewLifecycleOwner, { startEditFragment(it) })
+        viewModel.fetchPeriods(repository)
         super.onResume()
     }
 
-    private fun startEditFragment(it: Period?) {
-        it?.let {
-            val navController = findNavController()
-            val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
-            //action.period = it TODO Разобраться с информацией передаваемой в дочерние фрагменты
-            navController.navigate(action)
+    private fun render(periods: List<Period>?) {
+        periods?.let{
+            val array = arrayListOf<Period>()
+            array.addAll(periods)
+            periodsAdapter.setPeriods(array)
+            showAlertIfNull(periods.size)
         }
-    }
-
-    private fun render(periods: ArrayList<Period>) {
-        periodsAdapter.setPeriods(periods)
-        showAlertIfNull(periods.size)
     }
 
     //Отображает баннер в случае пустого списка
@@ -75,14 +68,12 @@ class PeriodsOfServiceFragment : Fragment() {
 
     private fun setListeners() {
         binding.addFloatingButton.setOnClickListener {
-            val action = PeriodsOfServiceFragmentDirections.actionPeriodsOfServiceFragmentToEditPeriodFragment()
-            //action.period = null TODO Разобраться с информацией передаваемой в дочерние фрагменты
-            findNavController().navigate(action)
+            startEditFragment(null)
         }
     }
 
     private fun setRecyclerView() {
-        periodsAdapter = PeriodsOfServiceRVAdapter(sharedViewModel)
+        periodsAdapter = PeriodsOfServiceRVAdapter(this)
         binding.periodsRecyclerView.apply {
             this.adapter = periodsAdapter
             val lm = LinearLayoutManager(context)
@@ -90,4 +81,22 @@ class PeriodsOfServiceFragment : Fragment() {
             layoutManager = lm
         }
     }
+
+    private fun startEditFragment(period: Period?) {
+        period.let {
+            val action = PeriodsOfServiceFragmentDirections
+                .actionPeriodsOfServiceFragmentToEditPeriodFragment()
+            action.periodId = viewModel.getPeriodIdFromPeriod(it)
+            findNavController().navigate(action)
+        }
+    }
+
+    override fun delete(period: Period) {
+        viewModel.deletePeriod(repository, period)
+    }
+
+    override fun edit(period: Period) {
+        startEditFragment(period)
+    }
+
 }

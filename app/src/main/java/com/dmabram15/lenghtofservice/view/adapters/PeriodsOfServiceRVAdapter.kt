@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
 import com.dmabram15.lenghtofservice.viewModel.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.Period
+import com.dmabram15.lenghtofservice.view.stringprovider.CalendarStringProviderImpl
 import com.dmabram15.lenghtofservice.viewModel.listeners.OnChangeListListener
+import com.dmabram15.lenghtofservice.viewModel.stringproviders.CalendarStringProvider
 
 class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListListener) : RecyclerView.Adapter<PeriodsOfServiceRVAdapter.PeriodsOfServiceViewHolder>() {
 
     private var periods = ArrayList<Period>()
     private lateinit var binding : LengthServicePeriodItemBinding
+    private var dateConverter : DateConverter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodsOfServiceViewHolder {
         binding = LengthServicePeriodItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -20,23 +23,26 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
     }
 
     override fun onBindViewHolder(holder: PeriodsOfServiceViewHolder, position: Int) {
+        if (dateConverter == null) {
+            dateConverter = DateConverter(CalendarStringProviderImpl(holder.binding.root.context))
+        }
         holder.id = periods[position].id
         holder.binding.apply {
-            beginPeriodDateTextView.text = DateConverter
+            beginPeriodDateTextView.text = dateConverter!!
                 .convert(periods[position].beginPeriod)
-            endPeriodDateTextView.text = DateConverter
+            endPeriodDateTextView.text = dateConverter!!
                 .convert(periods[position].endPeriod)
-            lengthOfServiceItemTextView.text = DateConverter.convertDifferent(
+            lengthOfServiceItemTextView.text = dateConverter!!.convertDifferent(
                 ((periods[position].endPeriod
                         - periods[position].beginPeriod)
                         * periods[position].multiple).toLong()
             )
             multipleCoefficientTextView.text = periods[position].multiple.toString()
             deleteItemButton.setOnClickListener {
-                onChangeListListener.delete(holder.id)
+                onChangeListListener.delete(periods[position])
             }
             editItemButton.setOnClickListener {
-                onChangeListListener.edit(holder.id)
+                onChangeListListener.edit(periods[position])
             }
         }
     }

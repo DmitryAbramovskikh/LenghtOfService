@@ -27,4 +27,8 @@ data class Period(
     override fun hashCode(): Int {
         return super.hashCode()
     }
+
+    companion object {
+        fun default() = Period(0, 0L, 0L, 0f)
+    }
 }

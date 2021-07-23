@@ -11,10 +11,10 @@ interface PeriodsDAO {
     fun updatePeriod(periodEntity: PeriodEntity)
 
     @Delete
-    fun deletePeriod(periodEntity: PeriodEntity)
+    fun deletePeriod(periodEntity: PeriodEntity) : Int
 
     @Insert
-    fun insertPeriod(periodEntity: PeriodEntity)
+    fun insertPeriod(periodEntity: PeriodEntity) : Long
 
     @Query("DELETE from periods_table")
     fun dropDatabase()

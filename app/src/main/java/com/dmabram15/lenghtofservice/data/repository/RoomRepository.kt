@@ -1,24 +1,36 @@
 package com.dmabram15.lenghtofservice.data.repository
 
 import com.dmabram15.lenghtofservice.App
-import com.dmabram15.lenghtofservice.viewModel.repository.Repository
+import com.dmabram15.lenghtofservice.model.repository.Repository
 import com.dmabram15.lenghtofservice.model.Period
 
-class RoomRepository : Repository {
+class RoomRepository private constructor() : Repository {
 
     private val periodsDatabase = App.getInstance().getDb()
     private var periodsDAO = periodsDatabase.periodsDao()
 
+    //Добавить даггер
+    private val memoryCachedPeriods : ArrayList<Period> = arrayListOf()
+
     override fun getAllPeriods(): ArrayList<Period> {
-        return daoInModelConverter(periodsDAO.getAll())
+        if (memoryCachedPeriods.isEmpty()) {
+            memoryCachedPeriods.addAll(daoInModelConverter(periodsDAO.getAll()))
+        }
+        return memoryCachedPeriods
     }
 
-    override fun savePeriod(period: Period) {
-        periodsDAO.insertPeriod(modelInDaoConverter(period))
+    override fun getPeriodById(periodId: Int): Period {
+        return memoryCachedPeriods.first { it.id == periodId }
     }
 
-    override fun deletePeriod(period: Period) {
-        periodsDAO.deletePeriod(modelInDaoConverter(period))
+    override fun savePeriod(period: Period) :Long {
+        memoryCachedPeriods.add(period)
+        return periodsDAO.insertPeriod(modelInDaoConverter(period))
+    }
+
+    override fun deletePeriod(period: Period) : Int {
+        memoryCachedPeriods.remove(period)
+        return periodsDAO.deletePeriod(modelInDaoConverter(period))
     }
 
     override fun dropDatabase() {
@@ -46,5 +58,10 @@ class RoomRepository : Repository {
                 )
             }
         )
+    }
+
+    companion object {
+        private val instance = RoomRepository()
+        fun getInstance() = instance
     }
 }
