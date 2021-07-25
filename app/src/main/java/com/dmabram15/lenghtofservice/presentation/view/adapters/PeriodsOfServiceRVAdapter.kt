@@ -27,21 +27,27 @@ class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListL
         }
         holder.id = periods[position].id
         holder.binding.apply {
+
             beginPeriodDateTextView.text = dateConverter!!
                 .convert(periods[position].beginPeriod)
+
             endPeriodDateTextView.text = dateConverter!!
                 .convert(periods[position].endPeriod)
+
             lengthOfServiceItemTextView.text = dateConverter!!.convertDifferent(
                 ((periods[position].endPeriod
                         - periods[position].beginPeriod)
                         * periods[position].multiple).toLong()
             )
+
             multipleCoefficientTextView.text = periods[position].multiple.toString()
+
             deleteItemButton.setOnClickListener {
-                onChangeListListener.delete(periods[position])
+                onChangeListListener.delete(periods.first{ period -> period.id == holder.id })
             }
+
             editItemButton.setOnClickListener {
-                onChangeListListener.edit(periods[position])
+                onChangeListListener.edit(periods.first{ period -> period.id == holder.id })
             }
         }
     }
