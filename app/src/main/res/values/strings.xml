@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Length of service</string>
     <string name="length_of_service_title">Current length of service</string>
-    <string name="begin_date">Begin date</string>
-    <string name="end_date">End date</string>
+    <string name="begin_date">begin date</string>
+    <string name="end_date">end date</string>
     <string name="multiple">Multiple</string>
     <string name="attention">Attention!</string>
     <string name="list_of_periods_is_null_message">You period\'s list is null.\nYou need to add new period.</string>
@@ -21,6 +21,9 @@
     <string name="calendar">calendar</string>
     <string name="nothing_added">Nothing added</string>
     <string name="calendar_picker" translatable="false">Calendar picker</string>
-    <string name="set_begin_date">Set begin date</string>
-    <string name="set_end_date">Set end date</string>
+    <string name="set_begin_date">set begin date</string>
+    <string name="set_end_date">set end date</string>
+    <string name="crossing_period_error">crossing with before added period</string>
+    <string name="included_period_error">including other period</string>
+    <string name="saved_succesful">Saved succesful</string>
 </resources>

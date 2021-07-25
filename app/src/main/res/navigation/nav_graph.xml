@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/lengthOfServiceFragment"
-        android:name="com.dmabram15.lenghtofservice.view.LengthOfServiceFragment"
+        android:name="com.dmabram15.lenghtofservice.presentation.view.LengthOfServiceFragment"
         android:label="lenght_of_service_fragment"
         tools:layout="@layout/lenght_of_service_fragment" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/periodsOfServiceFragment"
-        android:name="com.dmabram15.lenghtofservice.view.PeriodsOfServiceFragment"
+        android:name="com.dmabram15.lenghtofservice.presentation.view.PeriodsOfServiceFragment"
         android:label="periods_of_fragment"
         tools:layout="@layout/periods_of_fragment" >
         <action
@@ -35,13 +35,12 @@
     </fragment>
     <fragment
         android:id="@+id/editPeriodFragment"
-        android:name="com.dmabram15.lenghtofservice.view.EditPeriodFragment"
+        android:name="com.dmabram15.lenghtofservice.presentation.view.EditPeriodFragment"
         android:label="edit_period_fragment"
         tools:layout="@layout/edit_period_fragment" >
         <argument
-            android:name="period"
-            app:argType="com.dmabram15.lenghtofservice.model.Period"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="periodId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>
