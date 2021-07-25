@@ -4,7 +4,7 @@ import com.dmabram15.lenghtofservice.App
 import com.dmabram15.lenghtofservice.model.repository.Repository
 import com.dmabram15.lenghtofservice.model.Period
 
-class RoomRepository private constructor() : Repository {
+class PeriodsRepository private constructor() : Repository {
 
     private val periodsDatabase = App.getInstance().getDb()
     private var periodsDAO = periodsDatabase.periodsDao()
@@ -61,7 +61,7 @@ class RoomRepository private constructor() : Repository {
     }
 
     companion object {
-        private val instance = RoomRepository()
+        private val instance = PeriodsRepository()
         fun getInstance() = instance
     }
 }

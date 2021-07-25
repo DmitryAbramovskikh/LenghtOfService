@@ -1,9 +1,9 @@
-package com.dmabram15.lenghtofservice.viewModel.periodmatcher
+package com.dmabram15.lenghtofservice.presentation.viewModel.periodmatcher
 
 import androidx.lifecycle.MutableLiveData
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.model.listeners.OnMatcherEventListener
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.MessageStringProvider
+import com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders.MessageStringProvider
 
 class OnMatchEventHandler(
     private val startErrorMessage: MutableLiveData<MatcherResultMessage>,
@@ -17,19 +17,23 @@ class OnMatchEventHandler(
     }
 
     override fun hasEndCross(crossedPeriod: Period, date: Long) {
-        endErrorMessage.value =
+        endErrorMessage.postValue(
             MatcherResultMessage(stringProvider.getCrossingMessage())
+        )
     }
 
     override fun hasIncludingCross(crossedPeriod: Period) {
-        startErrorMessage.value =
+        startErrorMessage.postValue(
             MatcherResultMessage(stringProvider.getCrossingMessage())
-        endErrorMessage.value =
+        )
+        endErrorMessage.postValue(
             MatcherResultMessage(stringProvider.getCrossingMessage())
+        )
     }
 
     override fun success() {
-        successMessage.value =
+        successMessage.postValue(
             MatcherResultMessage(stringProvider.getSuccessMessage())
+        )
     }
 }

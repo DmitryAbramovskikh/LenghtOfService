@@ -1,10 +1,8 @@
-package com.dmabram15.lenghtofservice.view
+package com.dmabram15.lenghtofservice.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,11 +11,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
 
         setGraphics()
-    }
-
-    override fun onPause() {
-        ViewModelProvider(this).get(SharedViewModel::class.java).saveData()
-        super.onPause()
     }
 
     private fun setGraphics() {

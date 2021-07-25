@@ -1,7 +1,8 @@
-package com.dmabram15.lenghtofservice.viewModel.viewmodel
+package com.dmabram15.lenghtofservice.presentation.viewModel.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.dmabram15.lenghtofservice.model.Period
 import com.dmabram15.lenghtofservice.model.PeriodBuilder
@@ -10,10 +11,10 @@ import com.dmabram15.lenghtofservice.model.usecases.GetPeriodByIdUseCase
 import com.dmabram15.lenghtofservice.model.usecases.GetPeriodsUseCase
 import com.dmabram15.lenghtofservice.model.usecases.SavePeriodUseCase
 import com.dmabram15.lenghtofservice.model.utils.matchers.PeriodMatcher
-import com.dmabram15.lenghtofservice.viewModel.converters.DateConverter
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.MessageStringProvider
-import com.dmabram15.lenghtofservice.viewModel.periodmatcher.MatcherResultMessage
-import com.dmabram15.lenghtofservice.viewModel.periodmatcher.OnMatchEventHandler
+import com.dmabram15.lenghtofservice.presentation.viewModel.converters.DateConverter
+import com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders.MessageStringProvider
+import com.dmabram15.lenghtofservice.presentation.viewModel.periodmatcher.MatcherResultMessage
+import com.dmabram15.lenghtofservice.presentation.viewModel.periodmatcher.OnMatchEventHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,9 @@ class EditPeriodViewModel(
     private var endErrorMessage: MutableLiveData<MatcherResultMessage> = MutableLiveData()
     private var infoMessage: MutableLiveData<MatcherResultMessage> = MutableLiveData()
 
+    private var beginDateLong : MutableLiveData<Long> = MutableLiveData()
+    private var endDateLong : MutableLiveData<Long> = MutableLiveData()
+
     private var periodBuilder = PeriodBuilder()
 
     private var matchEventHandler = OnMatchEventHandler(
@@ -41,6 +45,9 @@ class EditPeriodViewModel(
     fun getBeginLD(): MutableLiveData<String> = beginDate
     fun getEndLD(): MutableLiveData<String> = endDate
     fun getMultiplyLD(): MutableLiveData<Float> = multiple
+
+    fun getBeginDateLong() : MutableLiveData<Long> = beginDateLong
+    fun getEngDateLong() : MutableLiveData<Long> = endDateLong
 
     fun setStartDate(startPeriod : Long, dateConverter: DateConverter) {
         periodBuilder.setBeginPeriod(startPeriod)
@@ -57,7 +64,9 @@ class EditPeriodViewModel(
     }
 
     fun onSaveClicked(repository: Repository) {
-        tryToSavePeriod(repository)
+        viewModelScope.launch(Dispatchers.IO) {
+            tryToSavePeriod(repository)
+        }
     }
 
     private fun tryToSavePeriod(repository: Repository) {
@@ -65,12 +74,10 @@ class EditPeriodViewModel(
             val period = periodBuilder.build()
             val periods = GetPeriodsUseCase().execute(repository)
             if (PeriodMatcher(matchEventHandler).matchPeriod(period, periods)) {
-                viewModelScope.launch(Dispatchers.IO) {
                     SavePeriodUseCase().execute(repository, period)
                     infoMessage.postValue(MatcherResultMessage(stringProvider.getSuccessMessage()))
-                }
             }
-        } else infoMessage.value = MatcherResultMessage(stringProvider.getNotAllFieldsFilled())
+        } else infoMessage.postValue(MatcherResultMessage(stringProvider.getNotAllFieldsFilled()))
     }
 
     fun setPeriodById(repository : Repository, periodId: Int, dateConverter: DateConverter) {
@@ -89,8 +96,11 @@ class EditPeriodViewModel(
             }
         }
         else {
-            var lastId = GetPeriodsUseCase().execute(repository).last().id
-            periodBuilder.setId(++lastId)
+            viewModelScope.launch (Dispatchers.IO ) {
+                val periods =  GetPeriodsUseCase().execute(repository)
+                var lastId = if (periods.isEmpty()) 0 else periods.last().id
+                periodBuilder.setId(++lastId)
+            }
         }
     }
 
@@ -98,8 +108,22 @@ class EditPeriodViewModel(
         return GetPeriodByIdUseCase().execute(repository, periodId)
     }
 
+    fun fetchBeginDateLong() {
+        beginDateLong.value = periodBuilder.getBeginDate()
+    }
+
+    fun fetchEndDateLong() {
+        endDateLong.value = periodBuilder.getEndDate()
+    }
+
     fun getStartErrorMessage() = startErrorMessage
     fun getEndErrorMessage() = endErrorMessage
     fun getSuccessMessage() = infoMessage
 
+    class Factory(private val stringProvider: MessageStringProvider) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return EditPeriodViewModel(stringProvider) as T
+        }
+    }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.EditPeriodFragment">
+    tools:context=".presentation.view.EditPeriodFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/medium_spacing"
             android:layout_marginTop="@dimen/medium_spacing"
-            app:layout_constraintEnd_toStartOf="@+id/pickStartDate"
+            app:layout_constraintEnd_toStartOf="@+id/pick_begin_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -60,7 +60,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/pickStartDate"
+            android:id="@+id/pick_begin_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"

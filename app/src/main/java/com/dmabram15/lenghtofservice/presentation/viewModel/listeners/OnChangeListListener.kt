@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.viewModel.listeners
+package com.dmabram15.lenghtofservice.presentation.viewModel.listeners
 
 import com.dmabram15.lenghtofservice.model.Period
 

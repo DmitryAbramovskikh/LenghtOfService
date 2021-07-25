@@ -13,7 +13,7 @@ interface PeriodsDAO {
     @Delete
     fun deletePeriod(periodEntity: PeriodEntity) : Int
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPeriod(periodEntity: PeriodEntity) : Long
 
     @Query("DELETE from periods_table")
