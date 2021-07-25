@@ -1,6 +1,6 @@
-package com.dmabram15.lenghtofservice.viewModel.converters
+package com.dmabram15.lenghtofservice.presentation.viewModel.converters
 
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.CalendarStringProvider
+import com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders.CalendarStringProvider
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*

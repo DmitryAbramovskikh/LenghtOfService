@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.view.viewmatcher
+package com.dmabram15.lenghtofservice.presentation.view.viewmatcher
 
 interface OnInputTextStateChangeListener {
     fun onInputError(message: String)

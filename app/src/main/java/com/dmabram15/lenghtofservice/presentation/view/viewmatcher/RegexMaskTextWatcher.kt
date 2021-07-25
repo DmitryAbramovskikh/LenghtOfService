@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.view.viewmatcher
+package com.dmabram15.lenghtofservice.presentation.view.viewmatcher
 
 import android.text.Editable
 import android.text.TextWatcher

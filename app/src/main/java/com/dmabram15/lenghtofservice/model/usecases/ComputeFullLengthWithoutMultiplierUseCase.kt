@@ -9,7 +9,7 @@ class ComputeFullLengthWithoutMultiplierUseCase {
         while (iterator.hasNext()) {
             val period = iterator.next()
             period.apply {
-                result = this.endPeriod - this.beginPeriod
+                result +=(this.endPeriod - this.beginPeriod)
             }
         }
         return result

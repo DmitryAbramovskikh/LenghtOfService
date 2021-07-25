@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.view
+package com.dmabram15.lenghtofservice.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dmabram15.lenghtofservice.data.repository.RoomRepository
+import com.dmabram15.lenghtofservice.data.repository.PeriodsRepository
 import com.dmabram15.lenghtofservice.databinding.PeriodsOfFragmentBinding
 import com.dmabram15.lenghtofservice.model.Period
-import com.dmabram15.lenghtofservice.view.adapters.PeriodsOfServiceRVAdapter
-import com.dmabram15.lenghtofservice.viewModel.listeners.OnChangeListListener
-import com.dmabram15.lenghtofservice.viewModel.viewmodel.PeriodsOfViewModel
+import com.dmabram15.lenghtofservice.presentation.view.adapters.PeriodsOfServiceRVAdapter
+import com.dmabram15.lenghtofservice.presentation.viewModel.listeners.OnChangeListListener
+import com.dmabram15.lenghtofservice.presentation.viewModel.viewmodel.PeriodsOfViewModel
 
 class PeriodsOfServiceFragment : Fragment(), OnChangeListListener {
 
@@ -23,7 +23,7 @@ class PeriodsOfServiceFragment : Fragment(), OnChangeListListener {
     private lateinit var viewModel: PeriodsOfViewModel
 
     //using dagger
-    private val repository = RoomRepository.getInstance()
+    private val repository = PeriodsRepository.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,35 +1,37 @@
-package com.dmabram15.lenghtofservice.view
+package com.dmabram15.lenghtofservice.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.data.repository.RoomRepository
+import com.dmabram15.lenghtofservice.data.repository.PeriodsRepository
 import com.dmabram15.lenghtofservice.databinding.EditPeriodFragmentBinding
-import com.dmabram15.lenghtofservice.viewModel.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.utils.enums.Multiples.*
-import com.dmabram15.lenghtofservice.view.stringprovider.CalendarStringProviderImpl
-import com.dmabram15.lenghtofservice.view.viewmatcher.OnInputTextStateChangeListener
-import com.dmabram15.lenghtofservice.view.viewmatcher.RegexMaskTextWatcher
-import com.dmabram15.lenghtofservice.viewModel.periodmatcher.MatcherResultMessage
-import com.dmabram15.lenghtofservice.viewModel.viewmodel.EditPeriodViewModel
-import com.dmabram15.lenghtofservice.viewModel.viewmodel.SharedViewModel
+import com.dmabram15.lenghtofservice.presentation.view.stringprovider.CalendarStringProviderImpl
+import com.dmabram15.lenghtofservice.presentation.view.stringprovider.MessageStringProviderImpl
+import com.dmabram15.lenghtofservice.presentation.view.viewmatcher.OnInputTextStateChangeListener
+import com.dmabram15.lenghtofservice.presentation.view.viewmatcher.RegexMaskTextWatcher
+import com.dmabram15.lenghtofservice.presentation.viewModel.converters.DateConverter
+import com.dmabram15.lenghtofservice.presentation.viewModel.periodmatcher.MatcherResultMessage
+import com.dmabram15.lenghtofservice.presentation.viewModel.viewmodel.EditPeriodViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 
 class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
-    private lateinit var viewModel: EditPeriodViewModel
+    private val viewModel: EditPeriodViewModel
+        by viewModels { EditPeriodViewModel.Factory(MessageStringProviderImpl(requireContext())) }
+
     private lateinit var binding: EditPeriodFragmentBinding
 
     private var datePicker = materialDatePickerInitialization()
     private var dateConverter : DateConverter? = null
 
     //dagger
-    private val repository = RoomRepository.getInstance()
+    private val repository = PeriodsRepository.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +43,6 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditPeriodViewModel::class.java)
 
         context?.let {
             dateConverter = DateConverter(CalendarStringProviderImpl(it))
@@ -68,7 +69,7 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
             val args = EditPeriodFragmentArgs.fromBundle(it)
             periodId = args.periodId
         }
-        viewModel.setPeriodById(repository, periodId)
+        viewModel.setPeriodById(repository, periodId, dateConverter!!)
     }
 
     private fun setObservers() {
@@ -76,9 +77,38 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
         viewModel.getEndLD().observe(viewLifecycleOwner, { renderEndDate(it) })
         viewModel.getMultiplyLD().observe(viewLifecycleOwner, { renderMultiply(it) })
 
-        viewModel.getStartErrorMessage().observe(viewLifecycleOwner, { renderStartMessage(it) })
-        viewModel.getEndErrorMessage().observe(viewLifecycleOwner, { renderEndMessage(it) })
+        viewModel.getStartErrorMessage().observe(viewLifecycleOwner, { renderCrossBeginMessage(it) })
+        viewModel.getEndErrorMessage().observe(viewLifecycleOwner, { renderCrossEndMessage(it) })
         viewModel.getSuccessMessage().observe(viewLifecycleOwner, { renderSuccessMessage(it) })
+
+        viewModel.getBeginDateLong().observe(viewLifecycleOwner, {showBeginCalendar(it)})
+        viewModel.getEngDateLong().observe(viewLifecycleOwner, {showEndCalendar(it)})
+    }
+
+    private fun showEndCalendar(it: Long?) {
+        val title = getString(R.string.set_end_date)
+        val onClickListener = { dateLong: Long ->
+            viewModel.setEndDate(dateLong, dateConverter!!)
+        }
+        if (it == null || it == 0L) {
+            pickerShowWithDate(System.currentTimeMillis(), title, onClickListener)
+        }
+        else {
+            pickerShowWithDate(it, title, onClickListener)
+        }
+    }
+
+    private fun showBeginCalendar(it: Long?) {
+        val title = getString(R.string.set_begin_date)
+        val onClickListener = { dateLong: Long ->
+            viewModel.setStartDate(dateLong, dateConverter!!)
+        }
+        if (it == null || it == 0L) {
+            pickerShowWithDate(System.currentTimeMillis(), title, onClickListener)
+        }
+        else {
+            pickerShowWithDate(it, title, onClickListener)
+        }
     }
 
     private fun renderSuccessMessage(it: MatcherResultMessage?) {
@@ -87,14 +117,14 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
         }
     }
 
-    private fun renderEndMessage(it: MatcherResultMessage?) {
+    private fun renderCrossEndMessage(it: MatcherResultMessage?) {
         it?.let {
             binding.endDateInputLayout.isErrorEnabled = true
             binding.endDateInputLayout.error = it.message
         }
     }
 
-    private fun renderStartMessage(it: MatcherResultMessage?) {
+    private fun renderCrossBeginMessage(it: MatcherResultMessage?) {
         it?.let {
             binding.beginDateInputLayout.isErrorEnabled = true
             binding.beginDateInputLayout.error = it.message
@@ -103,24 +133,17 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
     private fun setListeners() {
 
-        binding.pickStartDate.setOnClickListener {
-            val title = getString(R.string.set_begin_date)
-            val onClickListener = { dateLong: Long ->
-                viewModel.setStartDate(dateLong, dateConverter!!)
-            }
-            pickerShowWithDate(date, title, onClickListener)
+        binding.pickBeginDate.setOnClickListener {
+            viewModel.fetchBeginDateLong()
         }
 
         binding.pickEndDate.setOnClickListener {
-            val title = getString(R.string.set_end_date)
-            val onClickListener = { dateLong: Long ->
-                viewModel.setEndDate(dateLong, dateConverter!!)
-            }
-            pickerShowWithDate(date, title, onClickListener)
+            viewModel.fetchEndDateLong()
         }
 
         binding.applyButton.setOnClickListener {
-
+            viewModel.onSaveClicked(repository)
+            activity?.onBackPressed()
         }
 
         binding.multiplySelectorChipsGroup.setOnCheckedChangeListener { _, i ->
@@ -164,12 +187,12 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
         ).show()
     }
 
-    private fun renderBeginDate(value: Long) {
-        binding.beginDateInputText.setText(DateConverter.convert(value))
+    private fun renderBeginDate(value: String) {
+        binding.beginDateInputText.setText(value)
     }
 
-    private fun renderEndDate(value: Long) {
-        binding.endDateInputText.setText(DateConverter.convert(value))
+    private fun renderEndDate(value: String) {
+        binding.endDateInputText.setText(value)
     }
 
     private fun renderMultiply(value: Float) {
@@ -194,15 +217,15 @@ class EditPeriodFragment : Fragment(), OnInputTextStateChangeListener {
 
     //TODO удалить все к чертям отсюда
     override fun onInputError(message: String) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onInputSuccess() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onInputBegin() {
-        TODO("Not yet implemented")
+
     }
 
     private fun materialDatePickerInitialization() = MaterialDatePicker.Builder

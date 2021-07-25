@@ -1,8 +1,8 @@
-package com.dmabram15.lenghtofservice.view.stringprovider
+package com.dmabram15.lenghtofservice.presentation.view.stringprovider
 
 import android.content.Context
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.CalendarStringProvider
+import com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders.CalendarStringProvider
 
 class CalendarStringProviderImpl(private val context : Context) : CalendarStringProvider {
     override fun getYearsText(): String =

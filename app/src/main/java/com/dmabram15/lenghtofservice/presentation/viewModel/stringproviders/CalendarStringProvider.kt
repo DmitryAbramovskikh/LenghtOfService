@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.viewModel.stringproviders
+package com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders
 
 interface CalendarStringProvider {
     fun getYearsText() : String

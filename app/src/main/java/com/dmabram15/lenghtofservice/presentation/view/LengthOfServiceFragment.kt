@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.view
+package com.dmabram15.lenghtofservice.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.data.repository.RoomRepository
+import com.dmabram15.lenghtofservice.data.repository.PeriodsRepository
 import com.dmabram15.lenghtofservice.databinding.LenghtOfServiceFragmentBinding
 import com.dmabram15.lenghtofservice.model.repository.Repository
-import com.dmabram15.lenghtofservice.view.stringprovider.CalendarStringProviderImpl
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.CalendarStringProvider
-import com.dmabram15.lenghtofservice.viewModel.viewmodel.LengthOfServiceViewModel
+import com.dmabram15.lenghtofservice.presentation.view.stringprovider.CalendarStringProviderImpl
+import com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders.CalendarStringProvider
+import com.dmabram15.lenghtofservice.presentation.viewModel.viewmodel.LengthOfServiceViewModel
 
 class LengthOfServiceFragment : Fragment() {
 
@@ -21,7 +21,7 @@ class LengthOfServiceFragment : Fragment() {
     private lateinit var binding: LenghtOfServiceFragmentBinding
 
     //Инжектить с dagger
-    private val repository : Repository = RoomRepository.getInstance()
+    private val repository : Repository = PeriodsRepository.getInstance()
     private var stringProvider : CalendarStringProvider? = null
 
     override fun onCreateView(
@@ -50,14 +50,14 @@ class LengthOfServiceFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(LengthOfServiceViewModel::class.java)
 
         viewModel.lengthWithMultiplier.observe(viewLifecycleOwner, { renderLengthMultiple(it) })
-        viewModel.lengthWithoutMultiplier.observe(viewLifecycleOwner, { renderLength(it) })
+        viewModel.lengthInCalendar.observe(viewLifecycleOwner, { renderLengthCalendar(it) })
 
         viewModel.fetchLengths(repository, stringProvider!!)
     }
 
-    private fun renderLength(it: String?) {
+    private fun renderLengthCalendar(it: String?) {
         it?.let {
-            binding.lengthOfServiceTextView.text = it
+            binding.calendarLengthOfServiceTextView.text = it
         }
     }
 

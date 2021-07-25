@@ -1,8 +1,8 @@
-package com.dmabram15.lenghtofservice.view.stringprovider
+package com.dmabram15.lenghtofservice.presentation.view.stringprovider
 
 import android.content.Context
 import com.dmabram15.lenghtofservice.R
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.MessageStringProvider
+import com.dmabram15.lenghtofservice.presentation.viewModel.stringproviders.MessageStringProvider
 
 class MessageStringProviderImpl(private val context : Context) : MessageStringProvider {
 

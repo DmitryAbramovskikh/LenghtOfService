@@ -1,15 +1,14 @@
-package com.dmabram15.lenghtofservice.view.adapters
+package com.dmabram15.lenghtofservice.presentation.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dmabram15.lenghtofservice.databinding.LengthServicePeriodItemBinding
-import com.dmabram15.lenghtofservice.viewModel.converters.DateConverter
+import com.dmabram15.lenghtofservice.presentation.viewModel.converters.DateConverter
 import com.dmabram15.lenghtofservice.model.Period
-import com.dmabram15.lenghtofservice.view.stringprovider.CalendarStringProviderImpl
-import com.dmabram15.lenghtofservice.viewModel.listeners.OnChangeListListener
-import com.dmabram15.lenghtofservice.viewModel.stringproviders.CalendarStringProvider
+import com.dmabram15.lenghtofservice.presentation.view.stringprovider.CalendarStringProviderImpl
+import com.dmabram15.lenghtofservice.presentation.viewModel.listeners.OnChangeListListener
 
 class PeriodsOfServiceRVAdapter(private val onChangeListListener : OnChangeListListener) : RecyclerView.Adapter<PeriodsOfServiceRVAdapter.PeriodsOfServiceViewHolder>() {
 

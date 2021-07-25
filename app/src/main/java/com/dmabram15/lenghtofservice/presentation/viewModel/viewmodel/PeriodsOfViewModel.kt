@@ -1,4 +1,4 @@
-package com.dmabram15.lenghtofservice.viewModel.viewmodel
+package com.dmabram15.lenghtofservice.presentation.viewModel.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
