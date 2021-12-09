@@ -76,9 +76,6 @@ class PeriodsOfServiceFragment : Fragment(), OnChangeListListener {
         periodsAdapter = PeriodsOfServiceRVAdapter(this)
         binding.periodsRecyclerView.apply {
             this.adapter = periodsAdapter
-            val lm = LinearLayoutManager(context)
-            lm.orientation = LinearLayoutManager.VERTICAL
-            layoutManager = lm
         }
     }
 

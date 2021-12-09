@@ -8,8 +8,8 @@ class ComputeFullLengthWithMultiplierUseCase {
         var result = 0L
         while (iterator.hasNext()) {
             val period = iterator.next()
-            period.apply {
-                result = ((this.endPeriod - this.beginPeriod) * this.multiple).toLong()
+            period.let {
+                result += ((it.endPeriod - it.beginPeriod) * it.multiple).toLong()
             }
         }
         return result
